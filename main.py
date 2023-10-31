@@ -1,4 +1,4 @@
+from src.view.program import Program
 
-from src.view.view import View
-
-view = View()
+pgrm = Program()
+pgrm.menu_principal()
