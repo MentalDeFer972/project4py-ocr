@@ -15,12 +15,12 @@ class Tournoi:
     date_fin = ""
     nbre_tours = 4
     numero_tour_actuel = 0
-    liste_tours = []
+    liste_ronde = []
     liste_joueurs_tournoi = []
     description = ""
 
-    def __init__(self,nom,lieu,nbre_tours,
-                 liste_tours,
+    def __init__(self, nom, lieu, nbre_tours,
+                 liste_ronde,
                  liste_joueurs_tournoi,
                  description):
         self.id_tournoi = secrets.token_hex(8)
@@ -28,7 +28,7 @@ class Tournoi:
         self.lieu = lieu
         self.date_debut = datetime.date.today()
         self.nbre_tours = nbre_tours
-        self.liste_tours = liste_tours
+        self.liste_ronde = liste_ronde
         self.liste_joueurs_tournoi = liste_joueurs_tournoi
         self.description = description
 
@@ -76,8 +76,14 @@ class Tournoi:
 
     def __repr__(self) -> str:
         return (f"Tournoi,avec nom: {self.nom} , lieu : {self.lieu} , date de début : {self.date_debut}, "
-                f"id_tournoi : {self.id_joueur} ,"
-                f"date de fin : {self.date_fin} ,avec nombre de tours : {self.nbre_tours}")
+                f"id_tournoi : {self.id_tournoi} ,"
+                f"date de fin : {self.date_fin} ,"
+                f"Avec nombre de tours : {self.nbre_tours}")
 
+    def description_tournoi(self):
+        print(self.__repr__())
+        print("Liste des tours: \n")
+        for liste_t in self.liste_ronde:
+            print(f"list")
 
 
