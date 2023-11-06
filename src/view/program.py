@@ -1,4 +1,6 @@
 from src.controleurs.joueur_controleurs import *
+from src.controleurs.tournoi_controleurs import TournoiController
+from src.modele.tournoi import Tournoi
 
 
 class Program:
@@ -18,10 +20,13 @@ class Program:
         if choix == 1:
             self.menu_joueur()
         if choix == 2:
+            self.menu_tournoi()
             pass
         if choix == 3:
+            self.menu_lancer_tournoi()
             pass
         if choix == 4:
+            self.menu_lancer_rapports()
             pass
 
     def menu_joueur(self):
@@ -58,3 +63,48 @@ class Program:
             joueurc = JoueurController()
             joueurc.supprimer_joueur()
             self.menu_principal()
+
+    def menu_tournoi(self):
+        joueurc = JoueurController()
+        print("""
+                        Veuillez faire votre choix dans ce menu:
+                            1-Ajouter un tournoi
+                            2-Supprimer un tournoi
+                    """)
+        tournoi_menu = int(input())
+        if tournoi_menu == 1:
+            print("-----Ajout du tournoi-----\n")
+            nom = input("Veuillez écrire le nom du tournoi \n")
+            lieu = input("Veuillez écrire le lieu du tournoi \n")
+            description = input("Veuillez saisir la description du tournoi \n")
+            liste_joueurs_tournoi = []
+            liste_ronde = []
+
+            nbre_joueurs_tournoi = int(input("Veuillez choisir un nombre pair de joueurs qui participent dans le tournoi"))
+            print("\n----Création liste de joueur du tournoi----\n")
+            for i in range(nbre_joueurs_tournoi):
+                joueur = joueurc.choisir_joueurs()
+                liste_joueurs_tournoi.append(joueur)
+
+            nbre_tours = input("Veuillez saisir le nombre de tours \n")
+            for i in range(int(nbre_tours)):
+
+
+            tournoi = Tournoi(nom, lieu, nbre_tours,
+            liste_ronde,
+            liste_joueurs_tournoi,
+            description)
+            tournoic = TournoiController()
+            tournoic.ajouter_tournoi(tournoi)
+            print("Tournoi ajouté!\n")
+            self.menu_principal()
+        if tournoi_menu == 2:
+            tournoic = TournoiController()
+            tournoic.supprimer_tournoi()
+            self.menu_principal()
+
+    def menu_lancer_tournoi(self):
+        pass
+
+    def menu_lancer_rapports(self):
+        pass
