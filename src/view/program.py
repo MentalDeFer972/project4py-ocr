@@ -5,9 +5,6 @@ from src.modele.tournoi import Tournoi
 
 class Program:
 
-    def __init__(self):
-        pass
-
     def menu_principal(self):
         print(""" Bienvenue !
                     Veuillez faire votre choix:
@@ -65,6 +62,7 @@ class Program:
             self.menu_principal()
 
     def menu_tournoi(self):
+        t_controller = TournoiController()
         joueurc = JoueurController()
         print("""
                         Veuillez faire votre choix dans ce menu:
@@ -77,23 +75,16 @@ class Program:
             nom = input("Veuillez écrire le nom du tournoi \n")
             lieu = input("Veuillez écrire le lieu du tournoi \n")
             description = input("Veuillez saisir la description du tournoi \n")
-            liste_joueurs_tournoi = []
-            liste_ronde = []
-
-            nbre_joueurs_tournoi = int(input("Veuillez choisir un nombre pair de joueurs qui participent dans le tournoi"))
+            nbre_joueurs_tournoi = int(input("Veuillez choisir un nombre pair "
+                                             "de joueurs qui participent dans le "
+                                             "tournoi"))
             print("\n----Création liste de joueur du tournoi----\n")
             for i in range(nbre_joueurs_tournoi):
                 joueur = joueurc.choisir_joueurs()
-                liste_joueurs_tournoi.append(joueur)
-
-            nbre_tours = input("Veuillez saisir le nombre de tours \n")
-            for i in range(int(nbre_tours)):
-
-
-            tournoi = Tournoi(nom, lieu, nbre_tours,
-            liste_ronde,
-            liste_joueurs_tournoi,
-            description)
+                t_controller.ajouter_joueur_tournoi(joueur)
+            nbre_ronde = input("Veuillez saisir le nombre de ronde \n")
+            tournoi = Tournoi(nom, lieu, nbre_ronde, description)
+            tournoi.liste_joueurs_tournoi = t_controller.liste_joueurs_tournoi
             tournoic = TournoiController()
             tournoic.ajouter_tournoi(tournoi)
             print("Tournoi ajouté!\n")
@@ -108,3 +99,5 @@ class Program:
 
     def menu_lancer_rapports(self):
         pass
+
+

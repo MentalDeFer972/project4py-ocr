@@ -1,17 +1,20 @@
 import tinydb
 import secrets
 
-from tinydb import Query
+from tinydb import *
 
 
 class Joueur:
-    db = tinydb.TinyDB("./data/player.json")
 
-    def __init__(self, nom: str, prenom: str, date_n: str, id_joueur: str = None) -> None:
+    db = tinydb.TinyDB('./data/player.json')
+
+    def __init__(self, nom: str, prenom: str, date_n: str, id_joueur: str = None, points=0, couleur="None") -> None:
         self.nom = nom
         self.prenom = prenom
         self.date_n = date_n
         self.id_joueur = secrets.token_hex(8) if not id_joueur else id_joueur
+        self.couleur = couleur
+        self.points = points
 
     def to_dict(self):
         return self.__dict__

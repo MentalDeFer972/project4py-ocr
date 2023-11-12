@@ -2,9 +2,13 @@ from src.modele.tournoi import Tournoi
 
 
 class TournoiController:
+    liste_joueurs_tournoi = []
 
     def __init__(self):
         pass
+
+    def ajouter_joueur_tournoi(self,joueur):
+        self.liste_joueurs_tournoi.append(joueur)
 
     @staticmethod
     def ajouter_tournoi(tournoi):
@@ -31,3 +35,6 @@ class TournoiController:
         tournoi = self.choisir_tournoi()
         tournoi.delete()
         print("\nTournoi supprimé!\n")
+
+
+
