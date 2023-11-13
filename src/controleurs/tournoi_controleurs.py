@@ -11,7 +11,7 @@ class TournoiController:
         self.liste_joueurs_tournoi.append(joueur)
 
     @staticmethod
-    def ajouter_tournoi(tournoi):
+    def sauvegarder_tournoi(tournoi):
         tournoi.save()
 
     @staticmethod

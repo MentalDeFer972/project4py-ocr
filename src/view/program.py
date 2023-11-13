@@ -86,7 +86,9 @@ class Program:
             tournoi = Tournoi(nom, lieu, nbre_ronde, description)
             tournoi.liste_joueurs_tournoi = t_controller.liste_joueurs_tournoi
             tournoic = TournoiController()
-            tournoic.ajouter_tournoi(tournoi)
+            print("Génération des paires")
+            tournoi.generer_paires()
+            tournoic.sauvegarder_tournoi(tournoi)
             print("Tournoi ajouté!\n")
             self.menu_principal()
         if tournoi_menu == 2:
@@ -95,6 +97,7 @@ class Program:
             self.menu_principal()
 
     def menu_lancer_tournoi(self):
+
         pass
 
     def menu_lancer_rapports(self):

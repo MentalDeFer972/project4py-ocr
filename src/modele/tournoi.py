@@ -6,6 +6,8 @@ from random import *
 import tinydb
 from tinydb import *
 
+from src.modele.partie import Partie
+
 
 class Tournoi:
     db = tinydb.TinyDB("./data/tournoi.json")
@@ -18,6 +20,7 @@ class Tournoi:
     nbre_ronde = 4
     liste_parties = []
     liste_joueurs_tournoi = []
+    liste_paires_joueurs = []
     description = ""
 
     def __init__(self, nom, lieu, nbre_ronde, description):
@@ -45,11 +48,11 @@ class Tournoi:
         pass
 
     def update(self):
-        self.db.update(self.to_dict(), Query()["id_tournoi"] == self.id_joueur)
+        self.db.update(self.to_dict(), Query()["id_tournoi"] == self.id_tournoi)
         pass
 
     def delete(self):
-        self.db.remove(Query().id_joueur == self.id_joueur)
+        self.db.remove(Query().id_tournoi == self.id_tournoi)
         pass
 
     @classmethod
@@ -78,7 +81,6 @@ class Tournoi:
 
     def generer_paires(self):
         joueur_o = sorted(self.liste_joueurs_tournoi, key=lambda x: x.points, reverse=True)
-        liste_paires_joueurs = []
 
         for i in range(0, len(joueur_o), 2):
             joueur1 = joueur_o[i]
@@ -86,6 +88,24 @@ class Tournoi:
 
             couleur_joueur1 = random.choice(['Blanc', 'Noir'])
             couleur_joueur2 = 'Noir' if couleur_joueur1 == 'Blanc' else 'Blanc'
-            liste_paires_joueurs.append((joueur1, joueur2, couleur_joueur1, couleur_joueur2))
+            self.liste_paires_joueurs.append((joueur1, joueur2, couleur_joueur1, couleur_joueur2))
 
-        return liste_paires_joueurs
+
+    def lancer_tournoi(self):
+
+        for paire in self.liste_paires_joueurs:
+            resultat = random.randint(1, 3)
+            if resultat == 1:
+                paire.joueur1.points += 1
+            elif resultat == 2:
+                paire.joueur2.points += 1
+            elif resultat == 3:
+                paire.joueur1.points += 0.5
+                paire.joueur2.points += 0.5
+
+            partie = Partie(paire.joueur1, paire.joueur2, paire.couleur_joueur1, resultat)
+            self.liste_parties.append(partie)
+            self.save()
+
+
+
