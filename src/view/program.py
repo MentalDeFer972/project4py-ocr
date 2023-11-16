@@ -1,9 +1,19 @@
+import tinydb
+
 from src.controleurs.joueur_controleurs import *
 from src.controleurs.tournoi_controleurs import TournoiController
 from src.modele.tournoi import Tournoi
 
 
 class Program:
+
+    def nbre_occurences_tournoi(self):
+        resultat = 0
+        db = tinydb.TinyDB("./data/tournoi.json")
+        tab = db.all()
+        for i in tab:
+            resultat = i
+        return resultat
 
     def menu_principal(self):
         print(""" Bienvenue !
@@ -63,7 +73,6 @@ class Program:
 
     def menu_tournoi(self):
         t_controller = TournoiController()
-        joueurc = JoueurController()
         print("""
                         Veuillez faire votre choix dans ce menu:
                             1-Ajouter un tournoi
@@ -77,18 +86,15 @@ class Program:
             description = input("Veuillez saisir la description du tournoi \n")
             nbre_joueurs_tournoi = int(input("Veuillez choisir un nombre pair "
                                              "de joueurs qui participent dans le "
-                                             "tournoi"))
-            print("\n----Création liste de joueur du tournoi----\n")
-            for i in range(nbre_joueurs_tournoi):
-                joueur = joueurc.choisir_joueurs()
-                t_controller.ajouter_joueur_tournoi(joueur)
+                                             "tournoi \n"))
             nbre_ronde = input("Veuillez saisir le nombre de ronde \n")
             tournoi = Tournoi(nom, lieu, nbre_ronde, description)
-            tournoi.liste_joueurs_tournoi = t_controller.liste_joueurs_tournoi
-            tournoic = TournoiController()
-            print("Génération des paires")
+            print("\n----Création liste de joueur du tournoi----\n")
+            occurences = self.nbre_occurences_tournoi()
+            tournoi.choice_joueurs_tournoi(occurences, nbre_joueurs_tournoi)
+
             tournoi.generer_paires()
-            tournoic.sauvegarder_tournoi(tournoi)
+            t_controller.sauvegarder_tournoi(tournoi)
             print("Tournoi ajouté!\n")
             self.menu_principal()
         if tournoi_menu == 2:
@@ -97,7 +103,9 @@ class Program:
             self.menu_principal()
 
     def menu_lancer_tournoi(self):
-
+        tournoic = TournoiController()
+        tournoi = tournoic.choisir_tournoi()
+        tournoi.lancer_tournoi()
         pass
 
     def menu_lancer_rapports(self):

@@ -6,11 +6,13 @@ from random import *
 import tinydb
 from tinydb import *
 
+from src.modele.joueur import Joueur
 from src.modele.partie import Partie
 
 
 class Tournoi:
     db = tinydb.TinyDB("./data/tournoi.json")
+    db_joueur = tinydb.TinyDB("./data/player.json")
 
     id_tournoi = ""
     nom = ""
@@ -30,6 +32,22 @@ class Tournoi:
         self.date_debut = datetime.date.today()
         self.nbre_ronde = nbre_ronde
         self.description = description
+
+    def choice_joueurs_tournoi(self, num_tournoi, nbre_joueurs):
+        db_joueur = self.db_joueur
+        for nbre in range(nbre_joueurs):
+            print(f"Veuillez choisir un joueur dans le tournoi n°{num_tournoi+1} \n")
+            p_list = db_joueur.all()
+            i = 0
+            print("Veuillez choisir un joueur \n")
+            for p in p_list:
+                joueur = Joueur(**p)
+                print(f"Joueur n°{i + 1}  : \n {joueur.__repr__()}")
+                i += 1
+            choix = int(input())
+            joueur_choix = p_list[choix - 1]
+            print(f"Joueur choisi n°{choix} : \n {joueur_choix.__repr__()}")
+            self.liste_joueurs_tournoi.append(joueur_choix)
 
     def ajouter_date_fin(self):
         self.date_fin = datetime.date.today()
@@ -80,19 +98,20 @@ class Tournoi:
                 f"Avec nombre de tours : {self.nbre_ronde}")
 
     def generer_paires(self):
-        joueur_o = sorted(self.liste_joueurs_tournoi, key=lambda x: x.points, reverse=True)
+        print("Génération des paires \n")
 
-        for i in range(0, len(joueur_o), 2):
-            joueur1 = joueur_o[i]
-            joueur2 = joueur_o[i + 1] if i + 1 < len(joueur_o) else None
+        for joueur_o in self.liste_joueurs_tournoi:
+            for i in range(0, len(self.liste_joueurs_tournoi), 2):
+                print(i)
+                joueur1 = self.liste_joueurs_tournoi[i]
+                joueur2 = self.liste_joueurs_tournoi[i + 1] if i + 1 < len(self.liste_joueurs_tournoi) else None
 
-            couleur_joueur1 = random.choice(['Blanc', 'Noir'])
-            couleur_joueur2 = 'Noir' if couleur_joueur1 == 'Blanc' else 'Blanc'
-            self.liste_paires_joueurs.append((joueur1, joueur2, couleur_joueur1, couleur_joueur2))
+                couleur_joueur1 = random.choice(['Blanc', 'Noir'])
+                couleur_joueur2 = 'Noir' if couleur_joueur1 == 'Blanc' else 'Blanc'
+                self.liste_paires_joueurs.append((joueur1, joueur2, couleur_joueur1, couleur_joueur2))
 
 
     def lancer_tournoi(self):
-
         for paire in self.liste_paires_joueurs:
             resultat = random.randint(1, 3)
             if resultat == 1:
@@ -106,6 +125,10 @@ class Tournoi:
             partie = Partie(paire.joueur1, paire.joueur2, paire.couleur_joueur1, resultat)
             self.liste_parties.append(partie)
             self.save()
+            print("Liste des resultat des parties : \n")
+            for partie in self.liste_parties:
+                print(partie.__repr__())
+
 
 
 

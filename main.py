@@ -1,9 +1,9 @@
 from os.path import exists
 
+import tinydb
+
 from src.view.program import Program
 
-pgrm = Program()
-pgrm.menu_principal()
+program = Program()
 
-
-
+program.menu_principal()

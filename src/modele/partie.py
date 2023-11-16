@@ -52,3 +52,23 @@ class Partie:
     @classmethod
     def delete_all(cls):
         cls.db.truncate()
+
+    def resultat_repr(self,resultat):
+        if resultat == 1:
+            return "Joueur 1 gagnant"
+        if resultat == 2:
+            return "Joueur 2 gagnant"
+        if resultat == 3:
+            return "Match nul"
+
+    def __repr__(self):
+        return (f"Id de la partie : {self.id_partie} \n "
+                f"Joueur 1 : {self.joueur1.__repr__} \n",
+                f"Joueur 2 : {self.joueur2.__repr__} \n",
+                f"Couleur du joueur choisi : '{self.couleur_joueur} \n",
+                f"Resultat du match : \n",
+                f"{self.resultat_repr(self.resultat)}")
+
+
+
+
