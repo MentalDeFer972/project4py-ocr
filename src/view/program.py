@@ -11,8 +11,7 @@ class Program:
         resultat = 0
         db = tinydb.TinyDB("./data/tournoi.json")
         tab = db.all()
-        for i in tab:
-            resultat = i
+        resultat = len(tab)
         return resultat
 
     def menu_principal(self):
@@ -88,12 +87,9 @@ class Program:
                                              "de joueurs qui participent dans le "
                                              "tournoi \n"))
             nbre_ronde = input("Veuillez saisir le nombre de ronde \n")
-            tournoi = Tournoi(nom, lieu, nbre_ronde, description)
             print("\n----Création liste de joueur du tournoi----\n")
             occurences = self.nbre_occurences_tournoi()
-            tournoi.choice_joueurs_tournoi(occurences, nbre_joueurs_tournoi)
-
-            tournoi.generer_paires()
+            tournoi = Tournoi(nom, lieu, nbre_ronde, description, occurences, nbre_joueurs_tournoi)
             t_controller.sauvegarder_tournoi(tournoi)
             print("Tournoi ajouté!\n")
             self.menu_principal()

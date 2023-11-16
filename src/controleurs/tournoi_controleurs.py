@@ -1,3 +1,5 @@
+import random
+
 from src.modele.tournoi import Tournoi
 
 
@@ -35,6 +37,8 @@ class TournoiController:
         tournoi = self.choisir_tournoi()
         tournoi.delete()
         print("\nTournoi supprimé!\n")
+
+
 
 
 

@@ -1,7 +1,6 @@
-import datetime
+from datetime import date
 import random
 import secrets
-from random import *
 
 import tinydb
 from tinydb import *
@@ -11,8 +10,8 @@ from src.modele.partie import Partie
 
 
 class Tournoi:
-    db = tinydb.TinyDB("./data/tournoi.json")
-    db_joueur = tinydb.TinyDB("./data/player.json")
+    db = tinydb.TinyDB("./data/tournoi.json", indent=4)
+    db_joueur = tinydb.TinyDB("./data/player.json", indent=4)
 
     id_tournoi = ""
     nom = ""
@@ -25,18 +24,21 @@ class Tournoi:
     liste_paires_joueurs = []
     description = ""
 
-    def __init__(self, nom, lieu, nbre_ronde, description):
+    def __init__(self, nom, lieu, nbre_ronde, description,occurences,nbre_joueurs):
         self.id_tournoi = secrets.token_hex(8)
         self.nom = nom
         self.lieu = lieu
-        self.date_debut = datetime.date.today()
+        self.date_debut = str(date.today())
         self.nbre_ronde = nbre_ronde
         self.description = description
+        self.liste_joueurs_tournoi = self.choice_joueurs_tournoi(occurences, nbre_joueurs)
+        self.liste_paires_joueurs = self.generer_paires()
 
     def choice_joueurs_tournoi(self, num_tournoi, nbre_joueurs):
+        liste_joueurs_tournoi = []
         db_joueur = self.db_joueur
         for nbre in range(nbre_joueurs):
-            print(f"Veuillez choisir un joueur dans le tournoi n°{num_tournoi+1} \n")
+            print(f"Veuillez choisir un joueur dans le tournoi n°{num_tournoi + 1} \n")
             p_list = db_joueur.all()
             i = 0
             print("Veuillez choisir un joueur \n")
@@ -47,10 +49,11 @@ class Tournoi:
             choix = int(input())
             joueur_choix = p_list[choix - 1]
             print(f"Joueur choisi n°{choix} : \n {joueur_choix.__repr__()}")
-            self.liste_joueurs_tournoi.append(joueur_choix)
+            liste_joueurs_tournoi.append(joueur_choix)
+        return liste_joueurs_tournoi
 
     def ajouter_date_fin(self):
-        self.date_fin = datetime.date.today()
+        self.date_fin = date.today()
 
     def to_dict(self):
         return self.__dict__
@@ -63,7 +66,6 @@ class Tournoi:
 
     def save(self):
         self.db.insert(self.to_dict())
-        pass
 
     def update(self):
         self.db.update(self.to_dict(), Query()["id_tournoi"] == self.id_tournoi)
@@ -97,20 +99,6 @@ class Tournoi:
                 f"date de fin : {self.date_fin} ,"
                 f"Avec nombre de tours : {self.nbre_ronde}")
 
-    def generer_paires(self):
-        print("Génération des paires \n")
-
-        for joueur_o in self.liste_joueurs_tournoi:
-            for i in range(0, len(self.liste_joueurs_tournoi), 2):
-                print(i)
-                joueur1 = self.liste_joueurs_tournoi[i]
-                joueur2 = self.liste_joueurs_tournoi[i + 1] if i + 1 < len(self.liste_joueurs_tournoi) else None
-
-                couleur_joueur1 = random.choice(['Blanc', 'Noir'])
-                couleur_joueur2 = 'Noir' if couleur_joueur1 == 'Blanc' else 'Blanc'
-                self.liste_paires_joueurs.append((joueur1, joueur2, couleur_joueur1, couleur_joueur2))
-
-
     def lancer_tournoi(self):
         for paire in self.liste_paires_joueurs:
             resultat = random.randint(1, 3)
@@ -129,6 +117,18 @@ class Tournoi:
             for partie in self.liste_parties:
                 print(partie.__repr__())
 
+    def generer_paires(self):
+        liste_paires_joueurs = []
+        print("Génération des paires \n")
+        for i in range(0, len(self.liste_joueurs_tournoi), 2):
+            print(i)
+            joueur1 = self.liste_joueurs_tournoi[i]
+            joueur2 = self.liste_joueurs_tournoi[i + 1] if i + 1 < len(self.liste_joueurs_tournoi) else None
 
+            couleur_joueur1 = random.choices(['Blanc', 'Noir'])
+            couleur_joueur2 = 'Noir' if couleur_joueur1 == 'Blanc' else 'Blanc'
 
+            liste_paires_joueurs.append((joueur1, joueur2, couleur_joueur1, couleur_joueur2))
+
+        return liste_paires_joueurs
 
