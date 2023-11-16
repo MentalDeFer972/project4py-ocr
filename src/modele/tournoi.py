@@ -9,6 +9,19 @@ from src.modele.joueur import Joueur
 from src.modele.partie import Partie
 
 
+class Paire:
+    joueur1 = Joueur
+    joueur2 = Joueur
+    couleur_joueur1 = ""
+    couleur_joueur2 = ""
+
+    def __init__(self, joueur1, joueur2, couleur_joueur1, couleur_joueur2):
+        self.joueur1 = joueur1
+        self.joueur2 = joueur2
+        self.couleur_joueur1 = couleur_joueur1
+        self.couleur_joueur2 = couleur_joueur2
+
+
 class Tournoi:
     db = tinydb.TinyDB("./data/tournoi.json", indent=4)
     db_joueur = tinydb.TinyDB("./data/player.json", indent=4)
@@ -24,7 +37,7 @@ class Tournoi:
     liste_paires_joueurs = []
     description = ""
 
-    def __init__(self, nom, lieu, nbre_ronde, description,occurences,nbre_joueurs):
+    def __init__(self, nom, lieu, nbre_ronde, description, occurences, nbre_joueurs):
         self.id_tournoi = secrets.token_hex(8)
         self.nom = nom
         self.lieu = lieu
@@ -59,10 +72,9 @@ class Tournoi:
         return self.__dict__
         pass
 
-    @classmethod
-    def from_dict(cls, attrs):
+    @staticmethod
+    def from_dict(attrs):
         return Tournoi(**attrs)
-        pass
 
     def save(self):
         self.db.insert(self.to_dict())
@@ -75,22 +87,20 @@ class Tournoi:
         self.db.remove(Query().id_tournoi == self.id_tournoi)
         pass
 
-    @classmethod
-    def load_all(cls):
-        p_list = cls.db.all()
-        p_list = [cls.from_dict(p) for p in p_list]
+    @staticmethod
+    def load_all():
+        p_list = Tournoi.db.all()
+        p_list = [Tournoi.from_dict(p) for p in p_list]
         return p_list
 
-    @classmethod
-    def find_players(cls, key, value):
-        p_list = cls.db.search(Query()[key] == value)
-        p_list = [cls.from_dict(p) for p in p_list]
+    def find_players(self, key, value):
+        p_list = self.db_joueur.search(Query()[key] == value)
+        p_list = [self.from_dict(p) for p in p_list]
         return p_list
         pass
 
-    @classmethod
-    def delete_all(cls):
-        cls.db.truncate()
+    def delete_all(self):
+        self.db.truncate()
         pass
 
     def __repr__(self) -> str:
@@ -128,7 +138,6 @@ class Tournoi:
             couleur_joueur1 = random.choices(['Blanc', 'Noir'])
             couleur_joueur2 = 'Noir' if couleur_joueur1 == 'Blanc' else 'Blanc'
 
-            liste_paires_joueurs.append((joueur1, joueur2, couleur_joueur1, couleur_joueur2))
+            liste_paires_joueurs.append(Paire(joueur1, joueur2, couleur_joueur1, couleur_joueur2))
 
         return liste_paires_joueurs
-

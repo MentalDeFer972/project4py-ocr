@@ -37,10 +37,9 @@ class Partie:
         self.db.remove(Query().id_partie == self.id_partie)
         pass
 
-    @classmethod
-    def load_all(cls):
-        p_list = cls.db.all()
-        p_list = [cls.from_dict(p) for p in p_list]
+    def load_all(self):
+        p_list = self.db.all()
+        p_list = [self.from_dict(p) for p in p_list]
         return p_list
 
     @classmethod

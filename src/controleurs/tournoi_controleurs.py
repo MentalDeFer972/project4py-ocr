@@ -1,4 +1,4 @@
-import random
+import tinydb
 
 from src.modele.tournoi import Tournoi
 
@@ -6,10 +6,12 @@ from src.modele.tournoi import Tournoi
 class TournoiController:
     liste_joueurs_tournoi = []
 
+    db_tournoi = tinydb.TinyDB("./data/tournoi.json", indent=4)
+
     def __init__(self):
         pass
 
-    def ajouter_joueur_tournoi(self,joueur):
+    def ajouter_joueur_tournoi(self, joueur):
         self.liste_joueurs_tournoi.append(joueur)
 
     @staticmethod
@@ -37,8 +39,3 @@ class TournoiController:
         tournoi = self.choisir_tournoi()
         tournoi.delete()
         print("\nTournoi supprimé!\n")
-
-
-
-
-

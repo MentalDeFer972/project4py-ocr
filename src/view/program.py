@@ -8,7 +8,6 @@ from src.modele.tournoi import Tournoi
 class Program:
 
     def nbre_occurences_tournoi(self):
-        resultat = 0
         db = tinydb.TinyDB("./data/tournoi.json")
         tab = db.all()
         resultat = len(tab)
