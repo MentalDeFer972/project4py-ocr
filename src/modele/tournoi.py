@@ -5,26 +5,16 @@ from datetime import date
 import tinydb
 from tinydb import *
 
-from src.modele.partie import Partie
+from src.modele.match import Match
 
 
 class Tournoi:
     db = tinydb.TinyDB("./data/tournoi.json", indent=4)
     db_joueur = tinydb.TinyDB("./data/player.json", indent=4)
 
-    id_tournoi = ""
-    nom = ""
-    lieu = ""
-    date_debut = ""
-    date_fin = ""
-    nbre_ronde = 4
-    liste_parties = []
-    liste_joueurs_tournoi = []
-    liste_paires_joueurs = []
-    description = ""
-
-    def __init__(self, id_tournoi, nom, lieu, date_debut, date_fin, nbre_ronde, description, liste_joueurs_tournoi,
-                 liste_paires_joueurs):
+    def __init__(self, id_tournoi, nom, lieu, date_debut, date_fin,
+                 nbre_ronde, description,
+                 liste_joueurs_tournoi,liste_tour):
         self.id_tournoi = id_tournoi
         self.nom = nom
         self.lieu = lieu
@@ -33,7 +23,8 @@ class Tournoi:
         self.nbre_ronde = nbre_ronde
         self.description = description
         self.liste_joueurs_tournoi = liste_joueurs_tournoi
-        self.liste_paires_joueurs = liste_paires_joueurs
+        self.liste_tour = liste_tour
+
 
     def ajouter_date_fin(self):
         self.date_fin = date.today()
@@ -82,20 +73,20 @@ class Tournoi:
                 f"Avec nombre de tours : {self.nbre_ronde} \n")
 
     def lancer_tournoi(self):
-        for paire in self.liste_paires_joueurs:
+        result_tour = []
+        for match in self.liste_tour:
             resultat = random.randint(1, 3)
             if resultat == 1:
-                paire.joueur1.points += 1
+                match.joueur1.points += 1
             elif resultat == 2:
-                paire.joueur2.points += 1
+                match.joueur2.points += 1
             elif resultat == 3:
-                paire.joueur1.points += 0.5
-                paire.joueur2.points += 0.5
+                match.joueur1.points += 0.5
+                match.joueur2.points += 0.5
 
-            partie = Partie(secrets.token_hex(6), paire.joueur1, paire.joueur2, paire.couleur_joueur1, resultat)
-            self.liste_parties.append(partie)
+            result_tour.append(match)
             self.save()
-            print("Liste des resultat des parties : \n")
-            for partie in self.liste_parties:
-                print(partie.__repr__)
+            print("Liste des resultat des matchs : \n")
+            for match_result in result_tour:
+                print(match_result.__repr__)
 

@@ -3,17 +3,15 @@ import secrets
 from tinydb import TinyDB, Query
 
 
-class Partie:
-    db = TinyDB("./data/parties.json")
+class Match:
+    db = TinyDB("./data/match.json")
 
-    id_partie = ""
-    resultat = 0
-
-    def __init__(self, id_partie, joueur1, joueur2, couleur_joueur, resultat):
-        self.id_partie = id_partie
+    def __init__(self, id_match, joueur1, joueur2, couleur_joueur1,couleur_joueur2, resultat):
+        self.id_match = id_match
         self.joueur1 = joueur1
         self.joueur2 = joueur2
-        self.couleur_joueur = couleur_joueur
+        self.couleur_joueur1 = couleur_joueur1
+        self.couleur_joueur2 = couleur_joueur2
         self.resultat = resultat
 
     def to_dict(self):
@@ -22,7 +20,7 @@ class Partie:
 
     @classmethod
     def from_dict(cls, attrs):
-        return Partie(**attrs)
+        return Match(**attrs)
         pass
 
     def save(self):
@@ -30,11 +28,11 @@ class Partie:
         pass
 
     def update(self):
-        self.db.update(self.to_dict(), Query().id_partie == self.id_partie)
+        self.db.update(self.to_dict(), Query().id_match == self.id_match)
         pass
 
     def delete(self):
-        self.db.remove(Query().id_partie == self.id_partie)
+        self.db.remove(Query().id_match == self.id_match)
         pass
 
     def load_all(self):
@@ -61,10 +59,11 @@ class Partie:
             return "Match nul"
 
     def __repr__(self):
-        return (f"Id de la partie : {self.id_partie} \n "
+        return (f"Id du match : {self.id_match} \n "
                 f"Joueur 1 : {self.joueur1.__repr__} \n",
                 f"Joueur 2 : {self.joueur2.__repr__} \n",
-                f"Couleur du joueur choisi : '{self.couleur_joueur} \n",
+                f"Couleur du joueur n°1 choisi : {self.couleur_joueur1} \n"
+                f"Couleur du joueur n°2 choisi : {self.couleur_joueur2} \n"
                 f"Resultat du match : \n",
                 f"{self.resultat_repr(self.resultat)}")
 

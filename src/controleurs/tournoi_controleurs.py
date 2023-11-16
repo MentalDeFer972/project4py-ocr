@@ -3,6 +3,7 @@ import random
 import tinydb
 
 from src.modele.joueur import Joueur
+from src.modele.match import Match
 from src.modele.tournoi import Tournoi
 
 
@@ -45,7 +46,8 @@ class TournoiController:
         return liste_joueurs_tournoi
 
     def generer_paires(self, liste_joueurs_tournoi):
-        liste_paires_joueurs = []
+        liste_tour = []
+
         print("Génération des paires \n")
         for i in range(0, len(liste_joueurs_tournoi), 2):
             print(i)
@@ -55,9 +57,12 @@ class TournoiController:
             couleur_joueur1 = random.choices(['Blanc', 'Noir'])
             couleur_joueur2 = 'Noir' if couleur_joueur1 == 'Blanc' else 'Blanc'
 
-            liste_paires_joueurs.append((joueur1, joueur2, couleur_joueur1, couleur_joueur2))
+            resultat = 0
 
-        return liste_paires_joueurs
+            match = Match(joueur1, joueur2, couleur_joueur1, couleur_joueur2, resultat)
+            liste_tour.append(match)
+
+        return liste_tour
 
     @staticmethod
     def choisir_tournoi():

@@ -93,11 +93,11 @@ class Program:
             print("\n----Création liste de joueur du tournoi----\n")
             occurences = self.nbre_occurences_tournoi()
             liste_joueurs_tournoi = t_controller.choice_joueurs_tournoi(occurences, nbre_joueurs_tournoi)
-            liste_paires_joueurs = t_controller.generer_paires(liste_joueurs_tournoi)
+            liste_tour = t_controller.generer_paires(liste_joueurs_tournoi)
 
             tournoi = Tournoi(secrets.token_hex(6), nom, lieu, str(date.today()), "Inconnu", nbre_ronde,
                               description, liste_joueurs_tournoi,
-                              liste_paires_joueurs)
+                              liste_tour)
             t_controller.sauvegarder_tournoi(tournoi)
             print("Tournoi ajouté!\n")
             self.menu_principal()

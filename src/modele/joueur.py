@@ -8,7 +8,7 @@ class Joueur:
 
     db = tinydb.TinyDB('./data/player.json')
 
-    def __init__(self, nom: str, prenom: str, date_n: str, id_joueur: str = None, points=0, couleur="None") -> None:
+    def __init__(self, nom: str, prenom: str, date_n: str, id_joueur: str = None, points=0, couleur="None"):
         self.nom = nom
         self.prenom = prenom
         self.date_n = date_n
