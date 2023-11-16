@@ -18,13 +18,13 @@ class JoueurController:
         for p in p_list:
             print(f"""
                 Numéro {i} :
-                {p.__repr__()}
+                {p.__repr__}
                 """)
             i += 1
         choice = int(input("\nVeuillez chosir un numéro de joueur\n"))
         final_choice = choice - 1
         joueur = p_list[final_choice]
-        print(joueur.__repr__())
+        print(joueur.__repr__)
         return joueur
 
     @staticmethod
@@ -33,19 +33,19 @@ class JoueurController:
             nom = input("\nVeuillez changer le nom du joueur.")
             joueur.nom = nom
             joueur.update()
-            print(joueur.__repr__())
+            print(joueur.__repr__)
             print("\nModification effectuée.\n")
         if choix == 2:
             prenom = input("\nVeuillez changer le prénom du joueur.\n")
             joueur.prenom = prenom
             joueur.update()
-            print(joueur.__repr__())
+            print(joueur.__repr__)
             print("\nModification effectuée.\n")
         if choix == 3:
             date_n = input("\nVeuillez changer la date de naissance du joueur.\n")
             joueur.date_n = date_n
             joueur.update()
-            print(joueur.__repr__())
+            print(joueur.__repr__)
             print("\nModification effectuée.\n")
 
     def supprimer_joueur(self):

@@ -9,8 +9,8 @@ class Partie:
     id_partie = ""
     resultat = 0
 
-    def __init__(self, joueur1, joueur2, couleur_joueur, resultat):
-        self.id_partie = secrets.token_hex(6)
+    def __init__(self, id_partie, joueur1, joueur2, couleur_joueur, resultat):
+        self.id_partie = id_partie
         self.joueur1 = joueur1
         self.joueur2 = joueur2
         self.couleur_joueur = couleur_joueur
@@ -30,7 +30,7 @@ class Partie:
         pass
 
     def update(self):
-        self.db.update(self.to_dict(), Query()["id_partie"] == self.id_partie)
+        self.db.update(self.to_dict(), Query().id_partie == self.id_partie)
         pass
 
     def delete(self):

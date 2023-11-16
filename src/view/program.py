@@ -1,3 +1,6 @@
+import secrets
+from datetime import date
+
 import tinydb
 
 from src.controleurs.joueur_controleurs import *
@@ -7,7 +10,8 @@ from src.modele.tournoi import Tournoi
 
 class Program:
 
-    def nbre_occurences_tournoi(self):
+    @staticmethod
+    def nbre_occurences_tournoi():
         db = tinydb.TinyDB("./data/tournoi.json")
         tab = db.all()
         resultat = len(tab)
@@ -56,7 +60,7 @@ class Program:
             joueurc = JoueurController()
             joueur = joueurc.choisir_joueurs()
             print(f""" Que voulez-vous modifier sur le joueur suivant: 
-                    {joueur.__repr__()}
+                    {joueur.__repr__}
                     1-Nom
                     2-Prenom
                     3-Date de naissance
@@ -88,7 +92,12 @@ class Program:
             nbre_ronde = input("Veuillez saisir le nombre de ronde \n")
             print("\n----Création liste de joueur du tournoi----\n")
             occurences = self.nbre_occurences_tournoi()
-            tournoi = Tournoi(nom, lieu, nbre_ronde, description, occurences, nbre_joueurs_tournoi)
+            liste_joueurs_tournoi = t_controller.choice_joueurs_tournoi(occurences, nbre_joueurs_tournoi)
+            liste_paires_joueurs = t_controller.generer_paires(liste_joueurs_tournoi)
+
+            tournoi = Tournoi(secrets.token_hex(6), nom, lieu, str(date.today()), "Inconnu", nbre_ronde,
+                              description, liste_joueurs_tournoi,
+                              liste_paires_joueurs)
             t_controller.sauvegarder_tournoi(tournoi)
             print("Tournoi ajouté!\n")
             self.menu_principal()
@@ -105,5 +114,3 @@ class Program:
 
     def menu_lancer_rapports(self):
         pass
-
-
