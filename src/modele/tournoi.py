@@ -10,16 +10,56 @@ from src.modele.partie import Partie
 
 
 class Paire:
+
+    db_paire = tinydb.TinyDB("./data/paire.json", indent=4)
     joueur1 = Joueur
     joueur2 = Joueur
     couleur_joueur1 = ""
     couleur_joueur2 = ""
 
     def __init__(self, joueur1, joueur2, couleur_joueur1, couleur_joueur2):
+        self.id_paire = secrets.token_hex(6)
         self.joueur1 = joueur1
         self.joueur2 = joueur2
         self.couleur_joueur1 = couleur_joueur1
         self.couleur_joueur2 = couleur_joueur2
+
+    def to_dict(self):
+        return self.__dict__
+        pass
+
+    @staticmethod
+    def from_dict(attrs):
+        return Paire(**attrs)
+
+    def save(self):
+        self.db_paire.insert(self.to_dict())
+
+    def update(self):
+        self.db_paire.update(self.to_dict(), Query()["id_paire"] == self.id_paire)
+        pass
+
+    def delete(self):
+        self.db.remove(Query().id_paire == self.id_paire)
+        pass
+
+
+    def load_all(self):
+        p_list = self.db_paire.all()
+        p_list = [self.from_dict(p) for p in p_list]
+        return p_list
+
+    def find_players(self, key, value):
+        p_list = self.db_paire.search(Query()[key] == value)
+        p_list = [self.from_dict(p) for p in p_list]
+        return p_list
+        pass
+
+    def delete_all(self):
+        self.db_paire.truncate()
+        pass
+
+
 
 
 class Tournoi:
@@ -87,10 +127,10 @@ class Tournoi:
         self.db.remove(Query().id_tournoi == self.id_tournoi)
         pass
 
-    @staticmethod
-    def load_all():
-        p_list = Tournoi.db.all()
-        p_list = [Tournoi.from_dict(p) for p in p_list]
+
+    def load_all(self):
+        p_list = self.db.all()
+        p_list = [self.from_dict(p) for p in p_list]
         return p_list
 
     def find_players(self, key, value):
