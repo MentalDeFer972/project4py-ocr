@@ -1,4 +1,5 @@
 import random
+import secrets
 
 import tinydb
 
@@ -27,7 +28,8 @@ class TournoiController:
         tournoi.delete()
         print("\nTournoi supprimé!\n")
 
-    def choice_joueurs_tournoi(self, num_tournoi, nbre_joueurs):
+    @staticmethod
+    def choice_joueurs_tournoi(num_tournoi, nbre_joueurs):
         liste_joueurs_tournoi = []
         db_joueur = Joueur.db
         for nbre in range(nbre_joueurs):
@@ -45,7 +47,10 @@ class TournoiController:
             liste_joueurs_tournoi.append(joueur_choix)
         return liste_joueurs_tournoi
 
-    def generer_paires(self, liste_joueurs_tournoi):
+    @staticmethod
+    def generer_paires(liste_joueurs_tournoi):
+
+        random.shuffle(liste_joueurs_tournoi)
         liste_tour = []
 
         print("Génération des paires \n")
@@ -59,7 +64,7 @@ class TournoiController:
 
             resultat = 0
 
-            match = Match(joueur1, joueur2, couleur_joueur1, couleur_joueur2, resultat)
+            match = Match(secrets.token_hex(8), joueur1, joueur2, couleur_joueur1, couleur_joueur2, resultat)
             liste_tour.append(match)
 
         return liste_tour
