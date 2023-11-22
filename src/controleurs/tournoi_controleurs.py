@@ -51,7 +51,7 @@ class TournoiController:
     def generer_paires(liste_joueurs_tournoi):
 
         random.shuffle(liste_joueurs_tournoi)
-        liste_tour = []
+        liste_match = []
 
         print("Génération des paires \n")
         for i in range(0, len(liste_joueurs_tournoi), 2):
@@ -65,9 +65,9 @@ class TournoiController:
             resultat = 0
 
             match = Match(secrets.token_hex(8), joueur1, joueur2, couleur_joueur1, couleur_joueur2, resultat)
-            liste_tour.append(match)
+            liste_match.append(match)
 
-        return liste_tour
+        return liste_match
 
     @staticmethod
     def choisir_tournoi():
