@@ -1,5 +1,4 @@
 import random
-import secrets
 from datetime import date
 
 import tinydb

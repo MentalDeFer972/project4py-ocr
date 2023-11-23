@@ -1,10 +1,14 @@
+import datetime
 import secrets
 from datetime import date
 
 import tinydb
 
 from src.controleurs.joueur_controleurs import *
+from src.controleurs.match_controleurs import MatchController
+from src.controleurs.tour_controleurs import TourController
 from src.controleurs.tournoi_controleurs import TournoiController
+from src.modele.tour import Tour
 from src.modele.tournoi import Tournoi
 
 
@@ -89,16 +93,24 @@ class Program:
             nbre_joueurs_tournoi = int(input("Veuillez choisir un nombre pair "
                                              "de joueurs qui participent dans le "
                                              "tournoi \n"))
-            nbre_ronde = input("Veuillez saisir le nombre de ronde \n")
             print("\n----Création liste de joueur du tournoi----\n")
             occurences = self.nbre_occurences_tournoi()
             liste_joueurs_tournoi = t_controller.choice_joueurs_tournoi(occurences, nbre_joueurs_tournoi)
-            liste_tour = t_controller.generer_paires(liste_joueurs_tournoi)
 
+            print("-----Création des tours et matchs-----\n")
+            nbre_ronde = int(input("Veuillez saisir le nombres de tours/rondes"))
+            liste_ronde = []
+            for nbre_ronde in range(nbre_ronde):
+                liste_match = t_controller.generer_paires(liste_joueurs_tournoi)
+                tour = Tour(secrets.token_hex(8),f"Round n°{nbre_ronde}", str(datetime.datetime.now()), "", "Non terminée", liste_match)
+                tour.save()
+                liste_ronde.append(tour.id_tour)
+                print(f"Tour/Round n°{nbre_ronde} enregistré!\n")
             tournoi = Tournoi(secrets.token_hex(6), nom, lieu, str(date.today()), "Inconnu", nbre_ronde,
                               description, liste_joueurs_tournoi,
-                              liste_tour)
+                              liste_ronde)
             t_controller.sauvegarder_tournoi(tournoi)
+
             print("Tournoi ajouté!\n")
             self.menu_principal()
         if tournoi_menu == 2:

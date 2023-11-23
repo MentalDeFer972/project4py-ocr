@@ -17,7 +17,7 @@ class TournoiController:
         pass
 
     def ajouter_joueur_tournoi(self, joueur):
-        self.liste_joueurs_tournoi.append(joueur)
+        self.liste_joueurs_tournoi.append(joueur.id_joueur)
 
     @staticmethod
     def sauvegarder_tournoi(tournoi):
@@ -65,6 +65,7 @@ class TournoiController:
             resultat = 0
 
             match = Match(secrets.token_hex(8), joueur1, joueur2, couleur_joueur1, couleur_joueur2, resultat)
+            match.save()
             liste_match.append(match)
 
         return liste_match

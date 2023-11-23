@@ -1,11 +1,13 @@
+import json
+
 from tinydb import TinyDB, Query
 
 
 class Tour:
+    db = TinyDB("./data/tour.json", indent=4)
 
-    db = TinyDB("./data/tour.json")
-
-    def __init__(self,nom_round,dh_debut,dh_fin,statut,liste_match):
+    def __init__(self, id_tour, nom_round, dh_debut, dh_fin, statut, liste_match):
+        self.id_tour = id_tour
         self.nom_round = nom_round
         self.dh_debut = dh_debut
         self.dh_fin = dh_fin
@@ -13,25 +15,25 @@ class Tour:
         self.liste_match = liste_match
 
     def to_dict(self):
-        return self.__dict__
-        pass
+        return {"id_tour": self.id_tour,
+                "nom_round": self.nom_round,
+                "dh_debut": self.dh_debut,
+                "dh_fin": self.dh_fin,
+                "statut": self.statut,
+                "liste_match": [match.to_dict() for match in self.liste_match]}
 
     @classmethod
     def from_dict(cls, attrs):
         return Tour(**attrs)
-        pass
 
     def save(self):
         self.db.insert(self.to_dict())
-        pass
 
     def update(self):
         self.db.update(self.to_dict(), Query().id_match == self.id_match)
-        pass
 
     def delete(self):
         self.db.remove(Query().id_match == self.id_match)
-        pass
 
     def load_all(self):
         p_list = self.db.all()
@@ -47,5 +49,3 @@ class Tour:
     @classmethod
     def delete_all(cls):
         cls.db.truncate()
-
-
