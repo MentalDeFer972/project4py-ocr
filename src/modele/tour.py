@@ -30,10 +30,10 @@ class Tour:
         self.db.insert(self.to_dict())
 
     def update(self):
-        self.db.update(self.to_dict(), Query().id_match == self.id_match)
+        self.db.update(self.to_dict(), Query().id_tour == self.id_tour)
 
     def delete(self):
-        self.db.remove(Query().id_match == self.id_match)
+        self.db.remove(Query().id_tour == self.id_tour)
 
     def load_all(self):
         p_list = self.db.all()
@@ -41,7 +41,7 @@ class Tour:
         return p_list
 
     @classmethod
-    def find_parties(cls, key, value):
+    def find_tour(cls, key, value):
         p_list = cls.db.search(Query()[key] == value)
         p_list = [cls.from_dict(p) for p in p_list]
         return p_list

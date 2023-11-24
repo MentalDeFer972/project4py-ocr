@@ -4,8 +4,6 @@ from datetime import date
 import tinydb
 from tinydb import *
 
-from src.modele.match import Match
-
 
 class Tournoi:
     db = tinydb.TinyDB("./data/tournoi.json", indent=4)
@@ -13,7 +11,7 @@ class Tournoi:
 
     def __init__(self, id_tournoi, nom, lieu, date_debut, date_fin,
                  nbre_ronde, description,
-                 liste_joueurs_tournoi,liste_tour):
+                 liste_joueurs_tournoi, liste_tour):
         self.id_tournoi = id_tournoi
         self.nom = nom
         self.lieu = lieu
@@ -23,7 +21,6 @@ class Tournoi:
         self.description = description
         self.liste_joueurs_tournoi = liste_joueurs_tournoi
         self.liste_tour = liste_tour
-
 
     def ajouter_date_fin(self):
         self.date_fin = date.today()
@@ -88,4 +85,3 @@ class Tournoi:
             print("Liste des resultat des matchs : \n")
             for match_result in result_tour:
                 print(match_result.__repr__)
-

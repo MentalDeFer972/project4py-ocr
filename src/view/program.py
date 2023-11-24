@@ -5,8 +5,6 @@ from datetime import date
 import tinydb
 
 from src.controleurs.joueur_controleurs import *
-from src.controleurs.match_controleurs import MatchController
-from src.controleurs.tour_controleurs import TourController
 from src.controleurs.tournoi_controleurs import TournoiController
 from src.modele.tour import Tour
 from src.modele.tournoi import Tournoi
@@ -83,6 +81,7 @@ class Program:
                         Veuillez faire votre choix dans ce menu:
                             1-Ajouter un tournoi
                             2-Supprimer un tournoi
+                            3-Reprendre un tournoi
                     """)
         tournoi_menu = int(input())
         if tournoi_menu == 1:
@@ -117,6 +116,10 @@ class Program:
             tournoic = TournoiController()
             tournoic.supprimer_tournoi()
             self.menu_principal()
+        if tournoi_menu == 3:
+            tournoic = TournoiController()
+            tournoi = tournoic.choisir_tournoi()
+
 
     def menu_lancer_tournoi(self):
         tournoic = TournoiController()
