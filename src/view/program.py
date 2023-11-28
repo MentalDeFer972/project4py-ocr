@@ -101,7 +101,8 @@ class Program:
             liste_ronde = []
             for nbre_ronde in range(nbre_ronde):
                 liste_match = t_controller.generer_paires(liste_joueurs_tournoi)
-                tour = Tour(secrets.token_hex(8),f"Round n°{nbre_ronde}", str(datetime.datetime.now()), "", "Non terminée", liste_match)
+                tour = Tour(secrets.token_hex(8), f"Round n°{nbre_ronde}", str(datetime.datetime.now()), "",
+                            "Non terminée", liste_match)
                 tour.save()
                 liste_ronde.append(tour.id_tour)
                 print(f"Tour/Round n°{nbre_ronde} enregistré!\n")
@@ -120,7 +121,6 @@ class Program:
             tournoic = TournoiController()
             tournoi = tournoic.choisir_tournoi()
 
-
     def menu_lancer_tournoi(self):
         tournoic = TournoiController()
         tournoi = tournoic.choisir_tournoi()
@@ -128,4 +128,23 @@ class Program:
         pass
 
     def menu_lancer_rapports(self):
+        print("\n-----Sélection des rapports-----\n")
+        print("Veuillez choisir un rapport \n")
+        choix = input("1-Liste de tous les joueurs par ordre alphabétique \n"
+                      "2-Liste de tous les tournois \n"
+                      "3-Nom et dates d’un tournoi donné \n"
+                      "4-Liste des joueurs du tournoi par ordre alphabétique \n"
+                      "5-Liste de tous les tours du tournoi et de tous les matchs du tour \n")
+        if choix == 1:
+            pass
+        elif choix == 2:
+            pass
+        elif choix == 3:
+            pass
+        elif choix == 4:
+            pass
+        elif choix == 5:
+            pass
+        else:
+            self.menu_lancer_rapports()
         pass
