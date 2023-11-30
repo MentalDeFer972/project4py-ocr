@@ -6,6 +6,12 @@ class JoueurController:
     def __init__(self):
         pass
 
+    def afficher_liste_tous_joueurs(self):
+        list = Joueur.load_all()
+        list_joueurs = sorted(list, key=lambda joueur: joueur.nom)
+        for joueurs in list_joueurs:
+            print(joueurs.__repr__())
+
     @staticmethod
     def ajouter_joueur(joueur):
         joueur.save()

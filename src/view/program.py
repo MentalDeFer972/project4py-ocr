@@ -130,18 +130,30 @@ class Program:
     def menu_lancer_rapports(self):
         print("\n-----Sélection des rapports-----\n")
         print("Veuillez choisir un rapport \n")
-        choix = input("1-Liste de tous les joueurs par ordre alphabétique \n"
-                      "2-Liste de tous les tournois \n"
-                      "3-Nom et dates d’un tournoi donné \n"
-                      "4-Liste des joueurs du tournoi par ordre alphabétique \n"
-                      "5-Liste de tous les tours du tournoi et de tous les matchs du tour \n")
+        choix = int(input("1-Liste de tous les joueurs par ordre alphabétique \n"
+                          "2-Liste de tous les tournois \n"
+                          "3-Nom et dates d’un tournoi donné \n"
+                          "4-Liste des joueurs du tournoi par ordre alphabétique \n"
+                          "5-Liste de tous les tours du tournoi et de tous les matchs du tour \n"))
         if choix == 1:
+            joueur_c = JoueurController()
+            print("-----Liste de tous les joueurs par ordre alphabétique----- \n")
+            joueur_c.afficher_liste_tous_joueurs()
+            self.menu_lancer_rapports()
             pass
         elif choix == 2:
+            tournoi_c = TournoiController()
+            print("-----Liste de tous les tournois----- \n")
+            tournoi_c.afficher_liste_tournoi()
+            self.menu_lancer_rapports()
             pass
         elif choix == 3:
             pass
         elif choix == 4:
+            print("-----Liste des joueurs du tournoi par ordre alphabétique-----\n")
+            tournoi_c = TournoiController()
+            tournoi_c.afficher_liste_joueurs_tournoi()
+            self.menu_lancer_rapports()
             pass
         elif choix == 5:
             pass
