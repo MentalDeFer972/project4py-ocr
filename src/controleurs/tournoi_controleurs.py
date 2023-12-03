@@ -2,11 +2,33 @@ import random
 import secrets
 
 import tinydb
-from tinydb import Query, TinyDB
 
 from src.modele.joueur import Joueur
 from src.modele.match import Match
 from src.modele.tournoi import Tournoi
+
+
+def afficher_liste_tournoi():
+    list_tournoi = Tournoi.load_all()
+    for tournoi in list_tournoi:
+        print(tournoi.__repr__())
+
+
+def afficher_liste_joueurs_tournoi():
+    list_tournoi = Tournoi.load_all()
+    for tournoi in list_tournoi:
+        liste_joueurs_tournoi = sorted(tournoi.liste_joueurs_tournoi, key=lambda x: x['nom'])
+        for joueur in liste_joueurs_tournoi:
+            print(joueur.__repr__())
+
+
+def rechercher_nom_date_tournoi(nom):
+    resultats = Tournoi.find_tournoi_with_name(nom)
+    if resultats:
+        for tournoi in resultats:
+            print(f"Tournoi : \n {tournoi.__repr__()}")
+    else:
+        print("Aucun resultat trouvé")
 
 
 class TournoiController:
@@ -16,18 +38,6 @@ class TournoiController:
 
     def __init__(self):
         pass
-
-    def afficher_liste_tournoi(self):
-        list = Tournoi.load_all()
-        for tournoi in list:
-            print(tournoi.__repr__())
-
-    def afficher_liste_joueurs_tournoi(self):
-        list = Tournoi.load_all()
-        for tournoi in list:
-            liste_joueurs_tournoi = sorted(tournoi.liste_joueurs_tournoi, key=lambda x: x['nom'])
-            for joueur in liste_joueurs_tournoi:
-                print(joueur.__repr__())
 
     def ajouter_joueur_tournoi(self, joueur):
         self.liste_joueurs_tournoi.append(joueur.id_joueur)
@@ -97,15 +107,5 @@ class TournoiController:
         print(tournoi.__repr__())
         return tournoi
 
-    def rechercher_nom_date_tournoi(self, nom):
-        resultats = Tournoi.find_tournoi_with_name(nom)
-        if resultats:
-            for tournoi in resultats:
-                print(f"Tournoi : \n {tournoi.__repr__()}")
-        else:
-            print("Aucun resultat trouvé")
-
-    def tous_tour_tous_match_tour(self,tournoi):
+    def tous_tour_tous_match_tour(self, tournoi):
         pass
-
-
