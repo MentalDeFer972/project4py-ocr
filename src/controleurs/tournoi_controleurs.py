@@ -98,13 +98,10 @@ class TournoiController:
         return tournoi
 
     def rechercher_nom_date_tournoi(self, nom):
-        db = TinyDB("./data/tournoi.json")
-        table = db.table("_default")
-        query = Query()
-        resultats = table.search(query.nom == nom)
+        resultats = Tournoi.find_tournoi_with_name(nom)
         if resultats:
             for tournoi in resultats:
-                print(tournoi.__repr__())
+                print(f"Tournoi : \n {tournoi.__repr__()}")
         else:
             print("Aucun resultat trouvé")
 

@@ -56,6 +56,15 @@ class Tournoi:
         return p_list
         pass
 
+    @classmethod
+    def find_tournoi_with_name(cls, nom):
+        table = cls.db.table("_default")
+        tournoi = Query()
+        p_list = table.search(tournoi.nom == nom)
+        p_list = [cls.from_dict(p) for p in p_list]
+        return p_list
+        pass
+
     def delete_all(self):
         self.db.truncate()
         pass
