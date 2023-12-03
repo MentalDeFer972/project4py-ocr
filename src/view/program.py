@@ -134,7 +134,8 @@ class Program:
                           "2-Liste de tous les tournois \n"
                           "3-Nom et dates d’un tournoi donné \n"
                           "4-Liste des joueurs du tournoi par ordre alphabétique \n"
-                          "5-Liste de tous les tours du tournoi et de tous les matchs du tour \n"))
+                          "5-Liste de tous les tours du tournoi et de tous les matchs du tour \n"
+                          "6-Retour \n"))
         if choix == 1:
             joueur_c = JoueurController()
             print("-----Liste de tous les joueurs par ordre alphabétique----- \n")
@@ -148,7 +149,12 @@ class Program:
             self.menu_lancer_rapports()
             pass
         elif choix == 3:
-            pass
+            tournoi_c = TournoiController()
+            print("-----Liste de nom et dates d’un tournoi donné----- \n")
+            print("Veuillez choisir le nom du tournoi")
+            nom = input()
+            tournoi_c.rechercher_nom_date_tournoi(nom)
+            self.menu_lancer_rapports()
         elif choix == 4:
             print("-----Liste des joueurs du tournoi par ordre alphabétique-----\n")
             tournoi_c = TournoiController()
@@ -156,7 +162,12 @@ class Program:
             self.menu_lancer_rapports()
             pass
         elif choix == 5:
+            tournoi_c = TournoiController()
+            tournoi = tournoi_c.choisir_tournoi()
+            tournoi_c.tous_tour_tous_match_tour(tournoi)
             pass
+        elif choix == 6:
+            self.menu_principal()
         else:
             self.menu_lancer_rapports()
         pass

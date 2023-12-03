@@ -2,6 +2,7 @@ import random
 import secrets
 
 import tinydb
+from tinydb import Query, TinyDB
 
 from src.modele.joueur import Joueur
 from src.modele.match import Match
@@ -95,3 +96,19 @@ class TournoiController:
         tournoi = p_list[final_choice]
         print(tournoi.__repr__())
         return tournoi
+
+    def rechercher_nom_date_tournoi(self, nom):
+        db = TinyDB("./data/tournoi.json")
+        table = db.table("_default")
+        query = Query()
+        resultats = table.search(query.nom == nom)
+        if resultats:
+            for tournoi in resultats:
+                print(tournoi.__repr__())
+        else:
+            print("Aucun resultat trouvé")
+
+    def tous_tour_tous_match_tour(self,tournoi):
+        pass
+
+
