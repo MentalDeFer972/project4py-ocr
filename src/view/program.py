@@ -145,7 +145,7 @@ class Program:
         elif choix == 2:
             tournoi_c = TournoiController()
             print("-----Liste de tous les tournois----- \n")
-            afficher_liste_tournoi()
+            tournoi_c.afficher_liste_tournoi()
             self.menu_lancer_rapports()
             pass
         elif choix == 3:
@@ -153,12 +153,12 @@ class Program:
             print("-----Liste de nom et dates d’un tournoi donné----- \n")
             print("Veuillez choisir le nom du tournoi")
             nom = input()
-            rechercher_nom_date_tournoi(nom)
+            tournoi_c.rechercher_nom_date_tournoi(nom)
             self.menu_lancer_rapports()
         elif choix == 4:
             print("-----Liste des joueurs du tournoi par ordre alphabétique-----\n")
             tournoi_c = TournoiController()
-            afficher_liste_joueurs_tournoi()
+            tournoi_c.afficher_liste_joueurs_tournoi()
             self.menu_lancer_rapports()
             pass
         elif choix == 5:

@@ -8,27 +8,6 @@ from src.modele.match import Match
 from src.modele.tournoi import Tournoi
 
 
-def afficher_liste_tournoi():
-    list_tournoi = Tournoi.load_all()
-    for tournoi in list_tournoi:
-        print(tournoi.__repr__())
-
-
-def afficher_liste_joueurs_tournoi():
-    list_tournoi = Tournoi.load_all()
-    for tournoi in list_tournoi:
-        liste_joueurs_tournoi = sorted(tournoi.liste_joueurs_tournoi, key=lambda x: x['nom'])
-        for joueur in liste_joueurs_tournoi:
-            print(joueur.__repr__())
-
-
-def rechercher_nom_date_tournoi(nom):
-    resultats = Tournoi.find_tournoi_with_name(nom)
-    if resultats:
-        for tournoi in resultats:
-            print(f"Tournoi : \n {tournoi.__repr__()}")
-    else:
-        print("Aucun resultat trouvé")
 
 
 class TournoiController:
@@ -109,3 +88,24 @@ class TournoiController:
 
     def tous_tour_tous_match_tour(self, tournoi):
         pass
+
+    def afficher_liste_tournoi(self):
+        list_tournoi = Tournoi.load_all()
+        for tournoi in list_tournoi:
+            print(tournoi.__repr__())
+
+    @staticmethod
+    def afficher_liste_joueurs_tournoi():
+        list_tournoi = Tournoi.load_all()
+        for tournoi in list_tournoi:
+            liste_joueurs_tournoi = sorted(tournoi.liste_joueurs_tournoi, key=lambda x: x['nom'])
+            for joueur in liste_joueurs_tournoi:
+                print(joueur.__repr__())
+
+    def rechercher_nom_date_tournoi(self,nom):
+        resultats = Tournoi.find_tournoi_with_name(nom)
+        if resultats:
+            for tournoi in resultats:
+                print(f"Tournoi : \n {tournoi.__repr__()}")
+        else:
+            print("Aucun resultat trouvé")
