@@ -94,14 +94,6 @@ class TournoiController:
         for tournoi in list_tournoi:
             print(tournoi.__repr__())
 
-    @staticmethod
-    def afficher_liste_joueurs_tournoi():
-        list_tournoi = Tournoi.load_all()
-        for tournoi in list_tournoi:
-            liste_joueurs_tournoi = sorted(tournoi.liste_joueurs_tournoi, key=lambda x: x['nom'])
-            for joueur in liste_joueurs_tournoi:
-                print(joueur.__repr__())
-
     def rechercher_nom_date_tournoi(self,nom):
         resultats = Tournoi.find_tournoi_with_name(nom)
         if resultats:
@@ -109,3 +101,14 @@ class TournoiController:
                 print(f"Tournoi : \n {tournoi.__repr__()}")
         else:
             print("Aucun resultat trouvé")
+
+    @classmethod
+    def afficher_liste_joueurs_tournoi(cls,tournoi):
+        print(f"\n{tournoi.__repr__()}")
+        list_joueurs_tournoi = sorted(tournoi.liste_joueurs_tournoi, key=lambda x: x['nom'])
+        print("Listes des joueurs du tournoi : \n")
+        for joueur in list_joueurs_tournoi:
+            print(f"{joueur.__repr__()}")
+        pass
+
+

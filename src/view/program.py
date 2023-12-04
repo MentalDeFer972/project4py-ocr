@@ -121,7 +121,8 @@ class Program:
             tournoic = TournoiController()
             tournoi = tournoic.choisir_tournoi()
 
-    def menu_lancer_tournoi(self):
+    @staticmethod
+    def menu_lancer_tournoi():
         tournoic = TournoiController()
         tournoi = tournoic.choisir_tournoi()
         tournoi.lancer_tournoi()
@@ -156,9 +157,9 @@ class Program:
             tournoi_c.rechercher_nom_date_tournoi(nom)
             self.menu_lancer_rapports()
         elif choix == 4:
+            tournoi = TournoiController.choisir_tournoi()
             print("-----Liste des joueurs du tournoi par ordre alphabétique-----\n")
-            tournoi_c = TournoiController()
-            tournoi_c.afficher_liste_joueurs_tournoi()
+            TournoiController.afficher_liste_joueurs_tournoi(tournoi)
             self.menu_lancer_rapports()
             pass
         elif choix == 5:
