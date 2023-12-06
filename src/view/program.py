@@ -163,9 +163,9 @@ class Program:
             self.menu_lancer_rapports()
             pass
         elif choix == 5:
-            tournoi_c = TournoiController()
-            tournoi = tournoi_c.choisir_tournoi()
-            tournoi_c.tous_tour_tous_match_tour(tournoi)
+            tournoi = TournoiController.choisir_tournoi()
+            tournoi.finder_tour()
+            self.menu_lancer_rapports()
             pass
         elif choix == 6:
             self.menu_principal()

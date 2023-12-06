@@ -1,12 +1,12 @@
-import secrets
-
 from tinydb import TinyDB, Query
+
+from src.modele.joueur import Joueur
 
 
 class Match:
     db = TinyDB("./data/match.json")
 
-    def __init__(self, id_match, joueur1, joueur2, couleur_joueur1,couleur_joueur2, resultat):
+    def __init__(self, id_match, joueur1, joueur2, couleur_joueur1, couleur_joueur2, resultat):
         self.id_match = id_match
         self.joueur1 = joueur1
         self.joueur2 = joueur2
@@ -26,6 +26,12 @@ class Match:
     def save(self):
         self.db.insert(self.to_dict())
         pass
+
+    @classmethod
+    def find_match(cls, key):
+        p_list = cls.db.search(Query()[key])
+        p_list = [cls.from_dict(p) for p in p_list]
+        return p_list
 
     def update(self):
         self.db.update(self.to_dict(), Query().id_match == self.id_match)
@@ -50,7 +56,8 @@ class Match:
     def delete_all(cls):
         cls.db.truncate()
 
-    def resultat_repr(self,resultat):
+    @staticmethod
+    def resultat_repr(resultat):
         if resultat == 1:
             return "Joueur 1 gagnant"
         if resultat == 2:
@@ -58,15 +65,17 @@ class Match:
         if resultat == 3:
             return "Match nul"
 
-    def __repr__(self):
-        return (f"Id du match : {self.id_match} \n "
-                f"Joueur 1 : {self.joueur1.__repr__} \n",
-                f"Joueur 2 : {self.joueur2.__repr__} \n",
-                f"Couleur du joueur n°1 choisi : {self.couleur_joueur1} \n"
-                f"Couleur du joueur n°2 choisi : {self.couleur_joueur2} \n"
-                f"Resultat du match : \n",
-                f"{self.resultat_repr(self.resultat)}")
-
-
-
-
+    def to_string(self):
+        print(f"\n ID du match : {self.id_match} \n ",
+              f"\n Nom du joueur 1 : {self.joueur1['nom']} \n",
+              f" Prénom du joueur 1: {self.joueur1['prenom']} \n",
+              f" Date de naissance du joueur 1 : {self.joueur1['date_n']} \n",
+              f" ID du joueur 1 : {self.joueur2['id_joueur']} \n",
+              f"\n Nom du joueur 2 : {self.joueur2['nom']} \n"
+              f" Prénom du joueur 2 : {self.joueur2['prenom']} \n",
+              f" Date de naissance du joueur 2 : {self.joueur2['date_n']} \n",
+              f" ID du joueur 2 : {self.joueur2['id_joueur']} \n",
+              f"\n Couleur du joueur n°1 choisi : {self.couleur_joueur1} \n"
+              f" Couleur du joueur n°2 choisi : {self.couleur_joueur2} \n"
+              f"\n Resultat du match : \n",
+              f"{self.resultat_repr(self.resultat)} \n")

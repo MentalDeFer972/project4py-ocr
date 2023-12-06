@@ -86,9 +86,6 @@ class TournoiController:
         print(tournoi.__repr__())
         return tournoi
 
-    def tous_tour_tous_match_tour(self, tournoi):
-        pass
-
     def afficher_liste_tournoi(self):
         list_tournoi = Tournoi.load_all()
         for tournoi in list_tournoi:
@@ -110,5 +107,7 @@ class TournoiController:
         for joueur in list_joueurs_tournoi:
             print(f"{joueur.__repr__()}")
         pass
+
+
 
 

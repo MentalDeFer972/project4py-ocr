@@ -58,5 +58,3 @@ class Joueur:
     def __repr__(self) -> str:
         return (f"Joueur,avec nom: {self.nom} , prénom : {self.prenom} , date de naissance : {self.date_n} , et "
                 f"id_joueur : {self.id_joueur} \n ")
-
-

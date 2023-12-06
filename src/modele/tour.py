@@ -1,5 +1,3 @@
-import json
-
 from tinydb import TinyDB, Query
 
 
@@ -49,3 +47,10 @@ class Tour:
     @classmethod
     def delete_all(cls):
         cls.db.truncate()
+
+    def __repr__(self) -> str:
+        return (f"Tour,avec id :{self.id_tour} \n "
+                f"avec nom du round : {self.nom_round} \n"
+                f"date de début : {self.dh_debut} \n"
+                f"date de fin : {self.dh_fin} \n"
+                f"statut : {self.statut} \n")
