@@ -8,8 +8,6 @@ from src.modele.match import Match
 from src.modele.tournoi import Tournoi
 
 
-
-
 class TournoiController:
     liste_joueurs_tournoi = []
 
@@ -91,7 +89,7 @@ class TournoiController:
         for tournoi in list_tournoi:
             print(tournoi.__repr__())
 
-    def rechercher_nom_date_tournoi(self,nom):
+    def rechercher_nom_date_tournoi(self, nom):
         resultats = Tournoi.find_tournoi_with_name(nom)
         if resultats:
             for tournoi in resultats:
@@ -100,14 +98,10 @@ class TournoiController:
             print("Aucun resultat trouvé")
 
     @classmethod
-    def afficher_liste_joueurs_tournoi(cls,tournoi):
+    def afficher_liste_joueurs_tournoi(cls, tournoi):
         print(f"\n{tournoi.__repr__()}")
         list_joueurs_tournoi = sorted(tournoi.liste_joueurs_tournoi, key=lambda x: x['nom'])
         print("Listes des joueurs du tournoi : \n")
         for joueur in list_joueurs_tournoi:
             print(f"{joueur.__repr__()}")
         pass
-
-
-
-

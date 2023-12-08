@@ -24,6 +24,7 @@ class Tournoi:
         self.description = description
         self.liste_joueurs_tournoi = liste_joueurs_tournoi
         self.liste_tour = liste_tour
+        self.current_round_number = 0
 
     def ajouter_date_fin(self):
         self.date_fin = date.today()
@@ -82,17 +83,22 @@ class Tournoi:
 
     def lancer_tournoi(self):
         result_tour = []
-        for match in self.liste_tour:
+        for tour_extracted in self.liste_tour:
+            i = 0
+            tour = Tour.find_tour("id_tour", tour_extracted)
+            print(tour[i])
+            print(tour[i].__dict__)
+            print(self.get_current_match_list())
             resultat = random.randint(1, 3)
             if resultat == 1:
-                match.joueur1.points += 1
+                tour.joueur1.points += 1
             elif resultat == 2:
-                match.joueur2.points += 1
+                tour.joueur2.points += 1
             elif resultat == 3:
-                match.joueur1.points += 0.5
-                match.joueur2.points += 0.5
+                tour.joueur1.points += 0.5
+                tour.joueur2.points += 0.5
 
-            result_tour.append(match)
+            result_tour.append(tour)
             self.save()
             print("Liste des resultat des matchs : \n")
             for match_result in result_tour:
@@ -109,3 +115,21 @@ class Tournoi:
                                   liste['joueur2'], liste['couleur_joueur1'],
                                   liste['couleur_joueur2'], liste['resultat'])
                     print(match.to_string())
+
+    def get_current_match_list(self):
+        """Trouver l'id de la current round
+           Chercher dans la classe tour,le tour qu'on vient sélectionner
+           Chercher dans le tour la liste des matchs
+           Retourner la liste des matches
+        """
+        current_round_id = self.liste_tour[self.current_round_number]
+        tour = Tour.find_tour("id_tour", current_round_id)
+        liste_matchs = tour.liste_match
+        return liste_matchs
+
+
+    def update_current_round(self, list_matchs):
+        current_round_id = self.liste_tour[self.current_round_number]
+        tour = Tour.find_tour("id_tour", current_round_id)
+        tour.liste_match = list_matchs
+        tour.update()

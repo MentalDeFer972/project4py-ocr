@@ -81,6 +81,170 @@
                 "c32f5ed4bc872682",
                 "c16f02d72b91221a"
             ]
+        },
+        "3": {
+            "id_tournoi": "2e252546b508",
+            "nom": "Terre",
+            "lieu": "Marseille",
+            "date_debut": "2023-12-04",
+            "date_fin": "Inconnu",
+            "nbre_ronde": 3,
+            "description": "Blabala",
+            "liste_joueurs_tournoi": [
+                {
+                    "nom": "NONO",
+                    "prenom": "Tiaf",
+                    "date_n": "12/09/1992",
+                    "id_joueur": "d544e8364a5d93dd"
+                },
+                {
+                    "nom": "TERRO",
+                    "prenom": "Flia",
+                    "date_n": "12/03/2019",
+                    "id_joueur": "99426dd291435e1e"
+                },
+                {
+                    "nom": "TERRO",
+                    "prenom": "Maths",
+                    "date_n": "12/01/1994",
+                    "id_joueur": "d0b06ced42bbbe4b"
+                },
+                {
+                    "nom": "BLAN",
+                    "prenom": "Niak",
+                    "date_n": "12/01/1997",
+                    "id_joueur": "dc681a201cbfd3c3"
+                }
+            ],
+            "liste_tour": [
+                "5dc5f9df9b9fd38b",
+                "f134c08585f1422a",
+                "c32f5ed4bc872682",
+                "c16f02d72b91221a"
+            ]
+        },
+        "4": {
+            "id_tournoi": "2e252546b508",
+            "nom": "Terre",
+            "lieu": "Marseille",
+            "date_debut": "2023-12-04",
+            "date_fin": "Inconnu",
+            "nbre_ronde": 3,
+            "description": "Blabala",
+            "liste_joueurs_tournoi": [
+                {
+                    "nom": "NONO",
+                    "prenom": "Tiaf",
+                    "date_n": "12/09/1992",
+                    "id_joueur": "d544e8364a5d93dd"
+                },
+                {
+                    "nom": "TERRO",
+                    "prenom": "Flia",
+                    "date_n": "12/03/2019",
+                    "id_joueur": "99426dd291435e1e"
+                },
+                {
+                    "nom": "TERRO",
+                    "prenom": "Maths",
+                    "date_n": "12/01/1994",
+                    "id_joueur": "d0b06ced42bbbe4b"
+                },
+                {
+                    "nom": "BLAN",
+                    "prenom": "Niak",
+                    "date_n": "12/01/1997",
+                    "id_joueur": "dc681a201cbfd3c3"
+                }
+            ],
+            "liste_tour": [
+                "5dc5f9df9b9fd38b",
+                "f134c08585f1422a",
+                "c32f5ed4bc872682",
+                "c16f02d72b91221a"
+            ]
+        },
+        "5": {
+            "id_tournoi": "2e252546b508",
+            "nom": "Terre",
+            "lieu": "Marseille",
+            "date_debut": "2023-12-04",
+            "date_fin": "Inconnu",
+            "nbre_ronde": 3,
+            "description": "Blabala",
+            "liste_joueurs_tournoi": [
+                {
+                    "nom": "NONO",
+                    "prenom": "Tiaf",
+                    "date_n": "12/09/1992",
+                    "id_joueur": "d544e8364a5d93dd"
+                },
+                {
+                    "nom": "TERRO",
+                    "prenom": "Flia",
+                    "date_n": "12/03/2019",
+                    "id_joueur": "99426dd291435e1e"
+                },
+                {
+                    "nom": "TERRO",
+                    "prenom": "Maths",
+                    "date_n": "12/01/1994",
+                    "id_joueur": "d0b06ced42bbbe4b"
+                },
+                {
+                    "nom": "BLAN",
+                    "prenom": "Niak",
+                    "date_n": "12/01/1997",
+                    "id_joueur": "dc681a201cbfd3c3"
+                }
+            ],
+            "liste_tour": [
+                "5dc5f9df9b9fd38b",
+                "f134c08585f1422a",
+                "c32f5ed4bc872682",
+                "c16f02d72b91221a"
+            ]
+        },
+        "6": {
+            "id_tournoi": "2e252546b508",
+            "nom": "Terre",
+            "lieu": "Marseille",
+            "date_debut": "2023-12-04",
+            "date_fin": "Inconnu",
+            "nbre_ronde": 3,
+            "description": "Blabala",
+            "liste_joueurs_tournoi": [
+                {
+                    "nom": "NONO",
+                    "prenom": "Tiaf",
+                    "date_n": "12/09/1992",
+                    "id_joueur": "d544e8364a5d93dd"
+                },
+                {
+                    "nom": "TERRO",
+                    "prenom": "Flia",
+                    "date_n": "12/03/2019",
+                    "id_joueur": "99426dd291435e1e"
+                },
+                {
+                    "nom": "TERRO",
+                    "prenom": "Maths",
+                    "date_n": "12/01/1994",
+                    "id_joueur": "d0b06ced42bbbe4b"
+                },
+                {
+                    "nom": "BLAN",
+                    "prenom": "Niak",
+                    "date_n": "12/01/1997",
+                    "id_joueur": "dc681a201cbfd3c3"
+                }
+            ],
+            "liste_tour": [
+                "5dc5f9df9b9fd38b",
+                "f134c08585f1422a",
+                "c32f5ed4bc872682",
+                "c16f02d72b91221a"
+            ]
         }
     }
 }
