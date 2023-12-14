@@ -11,6 +11,7 @@ from src.modele.tour import Tour
 class Tournoi:
     db = tinydb.TinyDB("./data/tournoi.json", indent=4)
     db_joueur = tinydb.TinyDB("./data/player.json", indent=4)
+    current_round_number = 0
 
     def __init__(self, id_tournoi, nom, lieu, date_debut, date_fin,
                  nbre_ronde, description,
@@ -24,7 +25,6 @@ class Tournoi:
         self.description = description
         self.liste_joueurs_tournoi = liste_joueurs_tournoi
         self.liste_tour = liste_tour
-        self.current_round_number = 0
 
     def ajouter_date_fin(self):
         self.date_fin = date.today()
@@ -82,27 +82,7 @@ class Tournoi:
                 f"Avec nombre de tours : {self.nbre_ronde} \n")
 
     def lancer_tournoi(self):
-        result_tour = []
-        for tour_extracted in self.liste_tour:
-            i = 0
-            tour = Tour.find_tour("id_tour", tour_extracted)
-            print(tour[i])
-            print(tour[i].__dict__)
-            print(self.get_current_match_list())
-            resultat = random.randint(1, 3)
-            if resultat == 1:
-                tour.joueur1.points += 1
-            elif resultat == 2:
-                tour.joueur2.points += 1
-            elif resultat == 3:
-                tour.joueur1.points += 0.5
-                tour.joueur2.points += 0.5
-
-            result_tour.append(tour)
-            self.save()
-            print("Liste des resultat des matchs : \n")
-            for match_result in result_tour:
-                print(match_result.__repr__)
+        self.finder_tour()
 
     def finder_tour(self):
         liste_tour = self.liste_tour
@@ -126,7 +106,6 @@ class Tournoi:
         tour = Tour.find_tour("id_tour", current_round_id)
         liste_matchs = tour.liste_match
         return liste_matchs
-
 
     def update_current_round(self, list_matchs):
         current_round_id = self.liste_tour[self.current_round_number]

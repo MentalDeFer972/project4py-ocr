@@ -70,7 +70,7 @@ class Match:
               f"\n Nom du joueur 1 : {self.joueur1['nom']} \n",
               f" Prénom du joueur 1: {self.joueur1['prenom']} \n",
               f" Date de naissance du joueur 1 : {self.joueur1['date_n']} \n",
-              f" ID du joueur 1 : {self.joueur2['id_joueur']} \n",
+              f" ID du joueur 1 : {self.joueur1['id_joueur']} \n",
               f"\n Nom du joueur 2 : {self.joueur2['nom']} \n"
               f" Prénom du joueur 2 : {self.joueur2['prenom']} \n",
               f" Date de naissance du joueur 2 : {self.joueur2['date_n']} \n",

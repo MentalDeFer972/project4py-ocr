@@ -62,7 +62,7 @@ class TournoiController:
             couleur_joueur1 = random.choices(['Blanc', 'Noir'])
             couleur_joueur2 = 'Noir' if couleur_joueur1 == 'Blanc' else 'Blanc'
 
-            resultat = 0
+            resultat = random.randint(1, 3)
 
             match = Match(secrets.token_hex(8), joueur1, joueur2, couleur_joueur1, couleur_joueur2, resultat)
             match.save()
@@ -84,12 +84,14 @@ class TournoiController:
         print(tournoi.__repr__())
         return tournoi
 
-    def afficher_liste_tournoi(self):
+    @staticmethod
+    def afficher_liste_tournoi():
         list_tournoi = Tournoi.load_all()
         for tournoi in list_tournoi:
             print(tournoi.__repr__())
 
-    def rechercher_nom_date_tournoi(self, nom):
+    @staticmethod
+    def rechercher_nom_date_tournoi(nom):
         resultats = Tournoi.find_tournoi_with_name(nom)
         if resultats:
             for tournoi in resultats:
