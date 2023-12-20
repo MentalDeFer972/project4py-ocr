@@ -1,12 +1,15 @@
 from tinydb import TinyDB, Query
 
-from src.modele.joueur import Joueur
-
 
 class Match:
     db = TinyDB("./data/match.json")
 
-    def __init__(self, id_match, joueur1, joueur2, couleur_joueur1, couleur_joueur2, resultat):
+    def __init__(self, id_match,
+                 joueur1,
+                 joueur2,
+                 couleur_joueur1,
+                 couleur_joueur2,
+                 resultat):
         self.id_match = id_match
         self.joueur1 = joueur1
         self.joueur2 = joueur2

@@ -6,7 +6,8 @@ class JoueurController:
     def __init__(self):
         pass
 
-    def afficher_liste_tous_joueurs(self):
+    @staticmethod
+    def afficher_liste_tous_joueurs():
         list = Joueur.load_all()
         list_joueurs = sorted(list, key=lambda joueur: joueur.nom)
         for joueurs in list_joueurs:
@@ -48,7 +49,8 @@ class JoueurController:
             print(joueur.__repr__)
             print("\nModification effectuée.\n")
         if choix == 3:
-            date_n = input("\nVeuillez changer la date de naissance du joueur.\n")
+            date_n = input("\nVeuillez changer "
+                           "la date de naissance du joueur.\n")
             joueur.date_n = date_n
             joueur.update()
             print(joueur.__repr__)

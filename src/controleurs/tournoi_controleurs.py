@@ -33,7 +33,8 @@ class TournoiController:
         liste_joueurs_tournoi = []
         db_joueur = Joueur.db
         for nbre in range(nbre_joueurs):
-            print(f"Veuillez choisir un joueur dans le tournoi n°{num_tournoi + 1} \n")
+            print(f"Veuillez choisir "
+                  f"un joueur dans le tournoi n°{num_tournoi + 1} \n")
             p_list = db_joueur.all()
             i = 0
             print("Veuillez choisir un joueur \n")
@@ -57,14 +58,21 @@ class TournoiController:
         for i in range(0, len(liste_joueurs_tournoi), 2):
             print(i)
             joueur1 = liste_joueurs_tournoi[i]
-            joueur2 = liste_joueurs_tournoi[i + 1] if i + 1 < len(liste_joueurs_tournoi) else None
+            joueur2 = liste_joueurs_tournoi[i + 1] \
+                if i + 1 < len(liste_joueurs_tournoi) else None
 
             couleur_joueur1 = random.choices(['Blanc', 'Noir'])
             couleur_joueur2 = 'Noir' if couleur_joueur1 == 'Blanc' else 'Blanc'
 
             resultat = random.randint(1, 3)
 
-            match = Match(secrets.token_hex(8), joueur1, joueur2, couleur_joueur1, couleur_joueur2, resultat)
+            match = (
+                Match(secrets.token_hex(8),
+                      joueur1,
+                      joueur2,
+                      couleur_joueur1,
+                      couleur_joueur2,
+                      resultat))
             match.save()
             liste_match.append(match)
 
@@ -102,7 +110,8 @@ class TournoiController:
     @classmethod
     def afficher_liste_joueurs_tournoi(cls, tournoi):
         print(f"\n{tournoi.__repr__()}")
-        list_joueurs_tournoi = sorted(tournoi.liste_joueurs_tournoi, key=lambda x: x['nom'])
+        list_joueurs_tournoi = (
+            sorted(tournoi.liste_joueurs_tournoi, key=lambda x: x['nom']))
         print("Listes des joueurs du tournoi : \n")
         for joueur in list_joueurs_tournoi:
             print(f"{joueur.__repr__()}")

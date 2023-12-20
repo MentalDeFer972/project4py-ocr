@@ -4,10 +4,11 @@ from datetime import date
 
 import tinydb
 
-from src.controleurs.joueur_controleurs import *
+from src.controleurs.joueur_controleurs import JoueurController
 from src.controleurs.tournoi_controleurs import TournoiController
 from src.modele.tour import Tour
 from src.modele.tournoi import Tournoi
+from src.modele.joueur import Joueur
 
 
 class Program:
@@ -59,7 +60,8 @@ class Program:
                 print("-----Ajout du joueur----- \n")
                 nom = input("Veuillez écrire le nom du joueur\n")
                 prenom = input("Veuillez écrire le prénom du joueur\n")
-                date_naissance = input("Veuillez écrire la date de naissance du joueur\n")
+                date_naissance = input("Veuillez écrire "
+                                       "la date de naissance du joueur\n")
                 joueur = Joueur(nom, prenom, date_naissance)
                 joueurc = JoueurController()
                 joueurc.ajouter_joueur(joueur)
@@ -69,12 +71,12 @@ class Program:
                 try:
                     joueurc = JoueurController()
                     joueur = joueurc.choisir_joueurs()
-                    print(f""" Que voulez-vous modifier sur le joueur suivant: 
-                            {joueur.__repr__}
-                            1-Nom
-                            2-Prenom
-                            3-Date de naissance
-                            """)
+                    print("Que voulez-vous modifier",
+                          "sur le joueur suivant:\n",
+                          f"{joueur.__repr__}\n",
+                          "1-Nom \n",
+                          "2-Prenom \n",
+                          "3-Date de naissance\n")
                     choix = int(input())
                     if choix == 1 or choix == 2 or choix == 3:
                         joueurc.modifier_joueur(joueur, choix)
@@ -111,28 +113,42 @@ class Program:
                     print("-----Ajout du tournoi-----\n")
                     nom = input("Veuillez écrire le nom du tournoi \n")
                     lieu = input("Veuillez écrire le lieu du tournoi \n")
-                    description = input("Veuillez saisir la description du tournoi \n")
-                    nbre_joueurs_tournoi = int(input("Veuillez choisir un nombre pair "
-                                                     "de joueurs qui participent dans le "
+                    description = input("Veuillez saisir "
+                                        "la description du tournoi \n")
+                    nbre_joueurs_tournoi = int(input("Veuillez choisir "
+                                                     "un nombre pair "
+                                                     "de joueurs "
+                                                     "qui participent dans le "
                                                      "tournoi \n"))
+                    if nbre_joueurs_tournoi % 2 != 0:
+                        raise ValueError
                     print("\n----Création liste de joueur du tournoi----\n")
                     occurences = self.nbre_occurences_tournoi()
-                    liste_joueurs_tournoi = t_controller.choice_joueurs_tournoi(occurences, nbre_joueurs_tournoi)
-
+                    liste_joueurs_tournoi = (
+                        t_controller
+                        .choice_joueurs_tournoi
+                        (occurences, nbre_joueurs_tournoi))
                     print("-----Création des tours et matchs-----\n")
-                    nbre_ronde = int(input("Veuillez saisir le nombres de tours/rondes"))
+                    nbre_ronde = \
+                        (int(input("Veuillez saisir "
+                                   "le nombres de tours/rondes")))
                     liste_ronde = []
                     i = 0
                     while i != nbre_ronde:
-                        liste_match = t_controller.generer_paires(liste_joueurs_tournoi)
-                        tour = Tour(secrets.token_hex(8), f"Round n°{i + 1}", str(datetime.datetime.now()),
+                        liste_match = (
+                            t_controller.generer_paires(liste_joueurs_tournoi))
+                        tour = Tour(secrets.token_hex(8), f"Round n°{i + 1}",
+                                    str(datetime.datetime.now()),
                                     str(datetime.datetime.now()),
                                     "Terminée", liste_match)
                         tour.save()
                         liste_ronde.append(tour.id_tour)
                         print(f"Tour/Round n°{i} enregistré!\n")
                         i += 1
-                    tournoi = Tournoi(secrets.token_hex(6), nom, lieu, str(date.today()), "Inconnu", nbre_ronde,
+                    tournoi = Tournoi(secrets.token_hex(6), nom, lieu,
+                                      str(date.today()),
+                                      "Inconnu",
+                                      nbre_ronde,
                                       description, liste_joueurs_tournoi,
                                       liste_ronde)
                     t_controller.sauvegarder_tournoi(tournoi)
@@ -140,7 +156,8 @@ class Program:
                     print("Tournoi ajouté!\n")
                     self.menu_principal()
                 except ValueError:
-                    print("Vous avez saisi la mauvaise valeur")
+                    print("Vous avez saisi la mauvaise valeur ou "
+                          "le nombre choisi n'est pas pair")
                     self.menu_tournoi()
             if tournoi_menu == 2:
                 tournoic = TournoiController()
@@ -164,15 +181,22 @@ class Program:
         try:
             print("\n-----Sélection des rapports-----\n")
             print("Veuillez choisir un rapport \n")
-            choix = int(input("1-Liste de tous les joueurs par ordre alphabétique \n"
-                              "2-Liste de tous les tournois \n"
-                              "3-Nom et dates d’un tournoi donné \n"
-                              "4-Liste des joueurs du tournoi par ordre alphabétique \n"
-                              "5-Liste de tous les tours du tournoi et de tous les matchs du tour \n"
+            choix = int(input("1-Liste de tous "
+                              "les joueurs par ordre alphabétique \n"
+                              "2-Liste de tous "
+                              "les tournois \n"
+                              "3-Nom et dates "
+                              "d’un tournoi donné \n"
+                              "4-Liste des "
+                              "joueurs du tournoi par ordre alphabétique \n"
+                              "5-Liste de "
+                              "tous les tours du tournoi et "
+                              "de tous les matchs du tour \n"
                               "6-Retour \n"))
             if choix == 1:
                 joueur_c = JoueurController()
-                print("-----Liste de tous les joueurs par ordre alphabétique----- \n")
+                print("-----Liste de "
+                      "tous les joueurs par ordre alphabétique----- \n")
                 joueur_c.afficher_liste_tous_joueurs()
                 self.menu_lancer_rapports()
                 pass
@@ -191,7 +215,8 @@ class Program:
                 self.menu_lancer_rapports()
             elif choix == 4:
                 tournoi = TournoiController.choisir_tournoi()
-                print("-----Liste des joueurs du tournoi par ordre alphabétique-----\n")
+                print("-----Liste des joueurs "
+                      "du tournoi par ordre alphabétique-----\n")
                 TournoiController.afficher_liste_joueurs_tournoi(tournoi)
                 self.menu_lancer_rapports()
                 pass

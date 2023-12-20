@@ -4,7 +4,12 @@ from tinydb import TinyDB, Query
 class Tour:
     db = TinyDB("./data/tour.json", indent=4)
 
-    def __init__(self, id_tour, nom_round, dh_debut, dh_fin, statut, liste_match):
+    def __init__(self, id_tour,
+                 nom_round,
+                 dh_debut,
+                 dh_fin,
+                 statut,
+                 liste_match):
         self.id_tour = id_tour
         self.nom_round = nom_round
         self.dh_debut = dh_debut

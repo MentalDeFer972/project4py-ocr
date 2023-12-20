@@ -1,14 +1,19 @@
 import tinydb
 import secrets
 
-from tinydb import *
+from tinydb import Query
 
 
 class Joueur:
 
     db = tinydb.TinyDB('./data/player.json')
 
-    def __init__(self, nom: str, prenom: str, date_n: str, id_joueur: str = None, points=0, couleur="None"):
+    def __init__(self, nom: str,
+                 prenom: str,
+                 date_n: str,
+                 id_joueur: str = None,
+                 points=0,
+                 couleur="None"):
         self.nom = nom
         self.prenom = prenom
         self.date_n = date_n
@@ -56,5 +61,7 @@ class Joueur:
         pass
 
     def __repr__(self) -> str:
-        return (f"Joueur,avec nom: {self.nom} , prénom : {self.prenom} , date de naissance : {self.date_n} , et "
-                f"id_joueur : {self.id_joueur} \n ")
+        return (f"Joueur,avec nom: {self.nom},"
+                f"prénom : {self.prenom},"
+                f"date de naissance : {self.date_n},"
+                f"et id_joueur : {self.id_joueur} \n")

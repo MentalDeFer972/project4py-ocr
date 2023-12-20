@@ -1,7 +1,7 @@
 from datetime import date
 
 import tinydb
-from tinydb import *
+from tinydb import Query
 
 from src.modele.match import Match
 from src.modele.tour import Tour
@@ -40,7 +40,8 @@ class Tournoi:
         self.db.insert(self.to_dict())
 
     def update(self):
-        self.db.update(self.to_dict(), Query()["id_tournoi"] == self.id_tournoi)
+        self.db.update(self.to_dict(),
+                       Query()["id_tournoi"] == self.id_tournoi)
         pass
 
     def delete(self):
@@ -89,10 +90,10 @@ class Tournoi:
             liste_tour_final = Tour.find_tour("id_tour", tour)
             for liste in liste_tour_final:
                 print(f"\n{liste.__repr__()} \n")
-                for liste in liste.liste_match:
-                    match = Match(liste['id_match'], liste['joueur1'],
-                                  liste['joueur2'], liste['couleur_joueur1'],
-                                  liste['couleur_joueur2'], liste['resultat'])
+                for lm in liste.liste_match:
+                    match = Match(lm['id_match'], lm['joueur1'],
+                                  lm['joueur2'], lm['couleur_joueur1'],
+                                  lm['couleur_joueur2'], lm['resultat'])
                     print(match.to_string())
 
     def get_current_match_list(self):
