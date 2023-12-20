@@ -1,5 +1,5 @@
 # project4py-ocr
-projet4py-ocr est un projet de formation développeur Python de chez OpenClassrooms. Il consiste à lancer un jeu d'échecs 
+projet4py-ocr est un projet de formation développeur Python de chez OpenClassrooms. Il consiste à lancer un jeu d'échecs codé en langage Python.
 
 ## Etape 1 : Cloner le projet.
 Premièrement,il faut cloner le projet en faisant la commande "git clone https://github.com/MentalDeFer972/project4py-ocr" sur le Terminal(sur Mac/Linux)/invite de commandes(sur Windows),ensuite ouvrir ce projet avec Visual Studio Code ou PyCharm,sur Windows/Mac/Linux.
