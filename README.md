@@ -35,7 +35,13 @@ pip install -r requirements.txt
 dans l'environnement virtuel du projet.
 
 ## Etape 4 : Exécuter ce projet.
-Sur l'invite de commandes (Windows) ou le Terminal(Mac/Linux),lancer la commande "python main.py". Vous pouvez aussi le lancer à traver Visual Studio Code ou PyCharm.
+Sur l'invite de commandes (Windows) ou le Terminal(Mac/Linux),lancer la commande 
+
+```bash 
+"python main.py"
+```
+
+Vous pouvez aussi le lancer à traver Visual Studio Code ou PyCharm.
 
 Et voilà! Vous avez lancé le projet.
 
