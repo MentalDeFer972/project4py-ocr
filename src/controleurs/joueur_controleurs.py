@@ -1,15 +1,24 @@
 from src.modele.joueur import Joueur
+from datetime import datetime
 
 
 class JoueurController:
+
+    @staticmethod
+    def format_date_valide(date, format_date="%d/%m/%Y"):
+        try:
+            datetime.strptime(date, format_date)
+            return True
+        except ValueError:
+            return False
 
     def __init__(self):
         pass
 
     @staticmethod
     def afficher_liste_tous_joueurs():
-        list = Joueur.load_all()
-        list_joueurs = sorted(list, key=lambda joueur: joueur.nom)
+        list_ja = Joueur.load_all()
+        list_joueurs = sorted(list_ja, key=lambda joueur: joueur.nom)
         for joueurs in list_joueurs:
             print(joueurs.__repr__())
 
@@ -25,13 +34,12 @@ class JoueurController:
         for p in p_list:
             print(f"""
                 Numéro {i} :
-                {p.__repr__}
+                {p}
                 """)
             i += 1
-        choice = int(input("\nVeuillez chosir un numéro de joueur\n"))
+        choice = int(input("\nVeuillez choisir un numéro de joueur\n"))
         final_choice = choice - 1
         joueur = p_list[final_choice]
-        print(joueur.__repr__)
         return joueur
 
     @staticmethod
@@ -51,10 +59,14 @@ class JoueurController:
         if choix == 3:
             date_n = input("\nVeuillez changer "
                            "la date de naissance du joueur.\n")
-            joueur.date_n = date_n
-            joueur.update()
-            print(joueur.__repr__)
-            print("\nModification effectuée.\n")
+            if JoueurController.format_date_valide(date_n):
+                joueur.date_n = date_n
+                joueur.update()
+                print(joueur.__repr__)
+                print("\nModification effectuée.\n")
+            else:
+                print("\nErreur:Date non valide.")
+                JoueurController.modifier_joueur(joueur, choix)
 
     def supprimer_joueur(self):
         joueur = self.choisir_joueurs()

@@ -73,7 +73,7 @@ class Program:
                     joueur = joueurc.choisir_joueurs()
                     print("Que voulez-vous modifier",
                           "sur le joueur suivant:\n",
-                          f"{joueur.__repr__}\n",
+                          f"{joueur}\n",
                           "1-Nom \n",
                           "2-Prenom \n",
                           "3-Date de naissance\n")
