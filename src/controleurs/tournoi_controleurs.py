@@ -40,11 +40,11 @@ class TournoiController:
             print("Veuillez choisir un joueur \n")
             for p in p_list:
                 joueur = Joueur(**p)
-                print(f"Joueur n°{i + 1}  : \n {joueur.__repr__()}")
+                print(f"Joueur n°{i + 1}  : \n {joueur}")
                 i += 1
             choix = int(input())
             joueur_choix = p_list[choix - 1]
-            print(f"Joueur choisi n°{choix} : \n {joueur_choix.__repr__()}")
+            print(f"Joueur choisi n°{choix} : \n {joueur_choix}")
             liste_joueurs_tournoi.append(joueur_choix)
         return liste_joueurs_tournoi
 
