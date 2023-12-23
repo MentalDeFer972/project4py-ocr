@@ -38,7 +38,7 @@ dans l'environnement virtuel du projet.
 Sur l'invite de commandes (Windows) ou le Terminal(Mac/Linux),lancer la commande 
 
 ```bash 
-"python main.py"
+python main.py
 ```
 
 Vous pouvez aussi le lancer à traver Visual Studio Code ou PyCharm.
@@ -46,5 +46,11 @@ Vous pouvez aussi le lancer à traver Visual Studio Code ou PyCharm.
 Et voilà! Vous avez lancé le projet.
 
 ## Informations importantes
+Il faut lancer la commande suivante:
+
+```bash
+cd src
+flake8 --format=html --htmldir=flake-report
+```
 
 Le rapport flake8-html est situé dans le dossier /src/flake-report/index.html 
